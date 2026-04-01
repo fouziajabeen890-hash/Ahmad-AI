@@ -10,8 +10,6 @@ interface AITutorProps {
   currentLecture: Lecture;
 }
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-
 export default function AITutor({ currentLecture }: AITutorProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -45,6 +43,18 @@ export default function AITutor({ currentLecture }: AITutorProps) {
 
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
+
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      console.error('GEMINI_API_KEY is missing.');
+      setMessages(prev => [...prev, {
+        id: Date.now().toString(),
+        role: 'model',
+        text: 'Error: GEMINI_API_KEY is missing. Please configure it in the Secrets panel.'
+      }]);
+      return;
+    }
+    const ai = new GoogleGenAI({ apiKey });
 
     const userMsg: Message = { id: Date.now().toString(), role: 'user', text: input.trim() };
     setMessages(prev => [...prev, userMsg]);

@@ -5,8 +5,6 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { motion } from 'motion/react';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-
 export default function AICodeReview() {
   const [code, setCode] = useState('');
   const [review, setReview] = useState('');
@@ -15,6 +13,13 @@ export default function AICodeReview() {
   const handleReview = async () => {
     if (!code.trim()) return;
     
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      setReview('Error: GEMINI_API_KEY is missing. Please add it to your environment variables.');
+      return;
+    }
+    const ai = new GoogleGenAI({ apiKey });
+
     setIsLoading(true);
     setReview('');
     
