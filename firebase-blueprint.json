@@ -1,0 +1,58 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile data",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "User ID" },
+        "email": { "type": "string", "description": "User email address" },
+        "name": { "type": "string", "description": "User's full name" },
+        "role": { "type": "string", "description": "User role (e.g., student, admin)", "enum": ["student", "admin"] },
+        "createdAt": { "type": "timestamp", "description": "Account creation timestamp" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Course review by a user",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "ID of the user who wrote the review" },
+        "userName": { "type": "string", "description": "Name of the user" },
+        "userPhoto": { "type": "string", "description": "Photo URL of the user" },
+        "rating": { "type": "number", "description": "Rating out of 5" },
+        "comment": { "type": "string", "description": "Review text" },
+        "createdAt": { "type": "timestamp", "description": "When the review was created" }
+      },
+      "required": ["userId", "userName", "rating", "comment", "createdAt"]
+    },
+    "ChatSession": {
+      "title": "ChatSession",
+      "description": "A saved chat session for a user",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "ID of the user who owns the chat" },
+        "title": { "type": "string", "description": "Title of the chat session" },
+        "messages": { "type": "string", "description": "JSON stringified array of messages" },
+        "createdAt": { "type": "timestamp", "description": "When the chat was created" },
+        "updatedAt": { "type": "timestamp", "description": "When the chat was last updated" }
+      },
+      "required": ["userId", "title", "messages", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Stores user profiles"
+    },
+    "reviews/{reviewId}": {
+      "schema": { "$ref": "#/entities/Review" },
+      "description": "Stores course reviews"
+    },
+    "chats/{chatId}": {
+      "schema": { "$ref": "#/entities/ChatSession" },
+      "description": "Stores user chat history"
+    }
+  }
+}

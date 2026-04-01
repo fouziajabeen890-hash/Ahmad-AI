@@ -1,0 +1,25 @@
+{
+  "name": "MRS AHMAD SHAHID PYTHON TUTORIAL AND AI",
+  "short_name": "MRS AHMAD SHAHID",
+  "description": "Advanced Python AI Assistant & Code Reviewer",
+  "start_url": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "minimal-ui"],
+  "orientation": "portrait",
+  "background_color": "#030305",
+  "theme_color": "#4f46e5",
+  "icons": [
+    {
+      "src": "https://picsum.photos/seed/ai-icon/192/192",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://picsum.photos/seed/ai-icon/512/512",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
