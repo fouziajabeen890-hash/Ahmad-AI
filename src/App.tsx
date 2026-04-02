@@ -61,19 +61,17 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
 
 interface LayoutProps {
   children: React.ReactNode;
-  user: User | null;
+  user: any | null;
+  onLogout: () => void;
+  addXP: (amount: number) => void;
 }
 
-function Layout({ children, user }: LayoutProps) {
+function Layout({ children, user, onLogout }: LayoutProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
 
   const handleLogout = async () => {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
+    onLogout();
   };
 
   return (
@@ -107,17 +105,24 @@ function Layout({ children, user }: LayoutProps) {
         </div>
         
         <div className="flex items-center gap-6">
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-sm font-medium text-amber-400">
-            <Trophy className="w-4 h-4" />
-            <span>0% Completed</span>
+          <div className="hidden md:flex flex-col items-end gap-1">
+            <div className="flex items-center gap-2 text-xs font-bold text-indigo-400 uppercase tracking-widest">
+              <Trophy className="w-3 h-3" />
+              <span>Level {user?.level || 1}</span>
+              <span className="text-slate-500">•</span>
+              <span className="text-slate-300">{user?.xp || 0} XP</span>
+            </div>
+            <div className="w-32 h-1.5 bg-white/10 rounded-full overflow-hidden border border-white/5">
+              <motion.div 
+                className="h-full bg-gradient-to-r from-indigo-500 to-purple-500"
+                initial={{ width: 0 }}
+                animate={{ width: `${((user?.xp || 0) / (user?.nextLevelXP || 100)) * 100}%` }}
+              />
+            </div>
           </div>
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-indigo-900/50 border border-indigo-500/30 flex items-center justify-center text-sm font-bold text-indigo-200 overflow-hidden shadow-inner">
-              {user?.photoURL ? (
-                <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-              ) : (
-                user?.displayName?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U'
-              )}
+            <div className="w-9 h-9 rounded-xl bg-indigo-900/50 border border-indigo-500/30 flex items-center justify-center text-sm font-bold text-indigo-200 overflow-hidden shadow-inner">
+              {user?.displayName?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U'}
             </div>
             <button 
               onClick={handleLogout}
@@ -239,17 +244,76 @@ function Layout({ children, user }: LayoutProps) {
 }
 
 export default function App() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Check for dummy user first
+    const savedUser = localStorage.getItem('ahmad_shahid_user');
+    if (savedUser) {
+      const parsedUser = JSON.parse(savedUser);
+      // Ensure dummy users have no photoURL
+      if (parsedUser.isDummy) {
+        delete parsedUser.photoURL;
+      }
+      setUser(parsedUser);
+      setLoading(false);
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+      if (currentUser) {
+        setUser(currentUser);
+      }
       setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
+
+  const handleLogin = (userData: any) => {
+    // Ensure XP and Level exist for dummy users
+    const userWithXP = {
+      ...userData,
+      xp: userData.xp || 0,
+      level: userData.level || 1,
+      nextLevelXP: 100
+    };
+    
+    // Extra safety: ensure dummy users have no photoURL
+    if (userWithXP.isDummy) {
+      delete userWithXP.photoURL;
+    }
+
+    setUser(userWithXP);
+    localStorage.setItem('ahmad_shahid_user', JSON.stringify(userWithXP));
+  };
+
+  const addXP = (amount: number) => {
+    if (!user) return;
+    const newXP = (user.xp || 0) + amount;
+    let newLevel = user.level || 1;
+    let nextLevelXP = user.nextLevelXP || 100;
+
+    if (newXP >= nextLevelXP) {
+      newLevel += 1;
+      nextLevelXP = Math.floor(nextLevelXP * 1.5);
+    }
+
+    const updatedUser = { ...user, xp: newXP, level: newLevel, nextLevelXP };
+    setUser(updatedUser);
+    localStorage.setItem('ahmad_shahid_user', JSON.stringify(updatedUser));
+  };
+
+  const handleLogout = async () => {
+    localStorage.removeItem('ahmad_shahid_user');
+    setUser(null);
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
 
   if (loading) {
     return (
@@ -262,7 +326,7 @@ export default function App() {
   if (!user) {
     return (
       <ErrorBoundary>
-        <Auth />
+        <Auth onLogin={handleLogin} />
       </ErrorBoundary>
     );
   }
@@ -270,14 +334,14 @@ export default function App() {
   return (
     <ErrorBoundary>
       <Router>
-        <Layout user={user}>
+        <Layout user={user} onLogout={handleLogout} addXP={addXP}>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home user={user} addXP={addXP} />} />
             <Route path="/videos" element={<VideoLectures />} />
             <Route path="/course" element={<Course />} />
             <Route path="/reviews" element={<Reviews />} />
-            <Route path="/chatbot" element={<PythonChatbot />} />
-            <Route path="/code-review" element={<AICodeReview />} />
+            <Route path="/chatbot" element={<PythonChatbot addXP={addXP} />} />
+            <Route path="/code-review" element={<AICodeReview addXP={addXP} />} />
             <Route path="/foundation" element={<FoundationOfAI />} />
           </Routes>
         </Layout>

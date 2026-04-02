@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
 import { collection, addDoc, getDocs, query, where, orderBy, serverTimestamp, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase';
+import { handleFirestoreError, OperationType } from '../lib/firestore-errors';
 
 const CopyButton = ({ text }: { text: string }) => {
   const [copied, setCopied] = useState(false);
@@ -40,7 +41,7 @@ interface ChatMessage {
   file?: SelectedFile;
 }
 
-export default function PythonChatbot() {
+export default function PythonChatbot({ addXP }: { addXP: (amount: number) => void }) {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'welcome',
@@ -175,9 +176,10 @@ export default function PythonChatbot() {
 
   const fetchChatHistory = async () => {
     if (!auth.currentUser) return;
+    const path = 'chats';
     try {
       const q = query(
-        collection(db, 'chats'),
+        collection(db, path),
         where('userId', '==', auth.currentUser.uid),
         orderBy('updatedAt', 'desc')
       );
@@ -188,7 +190,7 @@ export default function PythonChatbot() {
       }));
       setChatHistory(history);
     } catch (error) {
-      console.error("Error fetching chat history:", error);
+      handleFirestoreError(error, OperationType.GET, path);
     }
   };
 
@@ -201,6 +203,7 @@ export default function PythonChatbot() {
   const saveChat = async (newMessages: ChatMessage[]) => {
     if (!auth.currentUser || newMessages.length <= 1) return;
 
+    const path = 'chats';
     try {
       const chatData = {
         userId: auth.currentUser.uid,
@@ -210,16 +213,16 @@ export default function PythonChatbot() {
       };
 
       if (currentChatId) {
-        await updateDoc(doc(db, 'chats', currentChatId), chatData);
+        await updateDoc(doc(db, path, currentChatId), chatData);
       } else {
-        const docRef = await addDoc(collection(db, 'chats'), {
+        const docRef = await addDoc(collection(db, path), {
           ...chatData,
           createdAt: serverTimestamp(),
         });
         setCurrentChatId(docRef.id);
       }
     } catch (error) {
-      console.error("Error saving chat:", error);
+      handleFirestoreError(error, OperationType.WRITE, path);
     }
   };
 
@@ -236,6 +239,7 @@ export default function PythonChatbot() {
 
   const deleteChat = async (chatId: string, e: React.MouseEvent) => {
     e.stopPropagation();
+    const path = `chats/${chatId}`;
     try {
       await deleteDoc(doc(db, 'chats', chatId));
       if (currentChatId === chatId) {
@@ -243,7 +247,7 @@ export default function PythonChatbot() {
       }
       fetchChatHistory();
     } catch (error) {
-      console.error("Error deleting chat:", error);
+      handleFirestoreError(error, OperationType.DELETE, path);
     }
   };
 
@@ -325,6 +329,7 @@ CRITICAL RULES:
       const updatedMessages = [...messages, userMsg, modelMsg];
       setMessages(updatedMessages);
       saveChat(updatedMessages);
+      addXP(10); // Earn 10 XP for each AI interaction
     } catch (error) {
       console.error("AI Error:", error);
       const errorMsg: ChatMessage = {

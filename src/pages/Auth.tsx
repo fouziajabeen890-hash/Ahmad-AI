@@ -3,8 +3,40 @@ import { Mail, Lock, User, ArrowRight, Github, CheckCircle2, AlertCircle, BrainC
 import { signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth, googleProvider, db } from '../firebase';
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
+import { handleFirestoreError, OperationType } from '../lib/firestore-errors';
 
-export default function Auth() {
+const getErrorMessage = (err: any) => {
+  if (err.code === 'auth/unauthorized-domain') {
+    return 'This domain is not authorized for Firebase Auth. Please open the app in a new tab or add this domain to your Firebase Console.';
+  }
+  if (err.code === 'auth/popup-blocked') {
+    return 'The login popup was blocked by your browser. Please allow popups for this site.';
+  }
+  if (err.code === 'auth/popup-closed-by-user') {
+    return 'The login popup was closed before completion.';
+  }
+  if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+    return 'Invalid email or password.';
+  }
+  if (err.code === 'auth/email-already-in-use') {
+    return 'This email is already in use.';
+  }
+  if (err.code === 'auth/invalid-api-key') {
+    return 'Invalid Firebase API key. Please check your configuration.';
+  }
+  if (err.code === 'auth/operation-not-allowed') {
+    return 'This authentication method is not enabled in the Firebase Console.';
+  }
+  if (err.code === 'permission-denied') {
+    return 'Database access denied. Please check your security rules.';
+  }
+  if (err.code === 'auth/network-request-failed') {
+    return 'Network error. Please check your internet connection.';
+  }
+  return err.message || 'An unexpected error occurred. Please try again.';
+};
+
+export default function Auth({ onLogin }: { onLogin: (user: any) => void }) {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,6 +45,16 @@ export default function Auth() {
   const [loading, setLoading] = useState(false);
   const isInIframe = typeof window !== 'undefined' && window.self !== window.top;
 
+  const handleDummyLogin = () => {
+    const dummyUser = {
+      uid: 'dummy-' + Math.random().toString(36).substr(2, 9),
+      email: email || 'guest@example.com',
+      displayName: name || 'Guest User',
+      isDummy: true
+    };
+    onLogin(dummyUser);
+  };
+
   const handleGoogleLogin = async () => {
     try {
       setError(null);
@@ -20,6 +62,7 @@ export default function Auth() {
       const result = await signInWithPopup(auth, googleProvider);
       
       // Check if user exists in Firestore, if not create them
+      const path = `users/${result.user.uid}`;
       const userRef = doc(db, 'users', result.user.uid);
       const userSnap = await getDoc(userRef);
       
@@ -32,10 +75,13 @@ export default function Auth() {
           createdAt: serverTimestamp()
         });
       }
+      onLogin(result.user);
     } catch (err: any) {
       console.error('Google Login Error:', err);
-      setError(err.message || 'Failed to login with Google');
       setLoading(false);
+      
+      // If Firebase fails, offer dummy login
+      setError(getErrorMessage(err) + " (Try Guest Login instead)");
     }
   };
 
@@ -45,10 +91,11 @@ export default function Auth() {
     setLoading(true);
 
     try {
+      let result;
       if (isLogin) {
-        await signInWithEmailAndPassword(auth, email, password);
+        result = await signInWithEmailAndPassword(auth, email, password);
       } else {
-        const result = await createUserWithEmailAndPassword(auth, email, password);
+        result = await createUserWithEmailAndPassword(auth, email, password);
         
         // Update profile with name
         if (name) {
@@ -56,6 +103,7 @@ export default function Auth() {
         }
 
         // Create user document in Firestore
+        const path = `users/${result.user.uid}`;
         await setDoc(doc(db, 'users', result.user.uid), {
           uid: result.user.uid,
           email: result.user.email,
@@ -64,10 +112,18 @@ export default function Auth() {
           createdAt: serverTimestamp()
         });
       }
+      onLogin(result.user);
     } catch (err: any) {
       console.error('Auth Error:', err);
-      setError(err.message || 'Authentication failed');
       setLoading(false);
+      
+      // Fallback to dummy login for testing if requested or if Firebase fails
+      if (email.includes('test') || email.includes('dummy')) {
+        handleDummyLogin();
+        return;
+      }
+      
+      setError(getErrorMessage(err) + " (Or use Guest Login)");
     }
   };
 
@@ -124,17 +180,6 @@ export default function Auth() {
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="flex -space-x-3">
-            {[1, 2, 3, 4].map((i) => (
-              <img 
-                key={i}
-                src={`https://i.pravatar.cc/100?img=${i + 10}`}
-                alt="Student"
-                className="w-12 h-12 rounded-full border-2 border-[#050505]"
-                referrerPolicy="no-referrer"
-              />
-            ))}
-          </div>
           <div className="flex flex-col">
             <div className="flex items-center gap-1">
               {[1, 2, 3, 4, 5].map((i) => (
@@ -313,12 +358,12 @@ export default function Auth() {
             </button>
             <button
               type="button"
+              onClick={handleDummyLogin}
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium py-3 px-4 rounded-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed opacity-50"
-              title="GitHub login coming soon"
+              className="w-full flex items-center justify-center gap-2 bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-500/30 text-indigo-300 font-medium py-3 px-4 rounded-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <Github className="w-5 h-5" />
-              GitHub
+              <User className="w-5 h-5" />
+              Guest
             </button>
           </div>
 

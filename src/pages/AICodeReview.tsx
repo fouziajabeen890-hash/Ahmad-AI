@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { motion } from 'motion/react';
 
-export default function AICodeReview() {
+export default function AICodeReview({ addXP }: { addXP: (amount: number) => void }) {
   const [code, setCode] = useState('');
   const [review, setReview] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -43,6 +43,7 @@ ${code}
       });
 
       setReview(response.text || 'No review generated.');
+      addXP(50); // Earn 50 XP for a code review
     } catch (error) {
       console.error('Error generating review:', error);
       setReview('An error occurred while generating the review. Please try again.');

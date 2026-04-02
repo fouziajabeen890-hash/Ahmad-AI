@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { db, auth } from '../firebase';
 import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, Timestamp } from 'firebase/firestore';
 import { Star, MessageSquare, Send, User as UserIcon } from 'lucide-react';
+import { handleFirestoreError, OperationType } from '../lib/firestore-errors';
 
 interface Review {
   id: string;
   userId: string;
   userName: string;
-  userPhoto?: string;
   rating: number;
   comment: string;
   createdAt: Timestamp;
@@ -20,13 +20,16 @@ export default function Reviews() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    const q = query(collection(db, 'reviews'), orderBy('createdAt', 'desc'));
+    const path = 'reviews';
+    const q = query(collection(db, path), orderBy('createdAt', 'desc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const reviewsData = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       })) as Review[];
       setReviews(reviewsData);
+    }, (error) => {
+      handleFirestoreError(error, OperationType.GET, path);
     });
 
     return () => unsubscribe();
@@ -37,20 +40,21 @@ export default function Reviews() {
     if (!auth.currentUser || !comment.trim()) return;
 
     setIsSubmitting(true);
+    const path = 'reviews';
     try {
-      await addDoc(collection(db, 'reviews'), {
+      const reviewData: any = {
         userId: auth.currentUser.uid,
         userName: auth.currentUser.displayName || 'Anonymous Student',
-        userPhoto: auth.currentUser.photoURL || null,
         rating,
         comment: comment.trim(),
         createdAt: serverTimestamp()
-      });
+      };
+
+      await addDoc(collection(db, path), reviewData);
       setComment('');
       setRating(5);
     } catch (error) {
-      console.error('Error adding review:', error);
-      alert('Failed to submit review. Please try again.');
+      handleFirestoreError(error, OperationType.CREATE, path);
     } finally {
       setIsSubmitting(false);
     }
@@ -130,12 +134,8 @@ export default function Reviews() {
               <div key={review.id} className="glass-panel rounded-2xl p-6 sm:p-8 transition-all hover:border-white/20 hover:shadow-2xl">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center overflow-hidden shrink-0">
-                      {review.userPhoto ? (
-                        <img src={review.userPhoto} alt={review.userName} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-                      ) : (
-                        <UserIcon className="w-5 h-5 text-slate-400" />
-                      )}
+                    <div className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center overflow-hidden shrink-0">
+                      <UserIcon className="w-5 h-5 text-slate-400" />
                     </div>
                     <div>
                       <h3 className="font-medium text-slate-200">{review.userName}</h3>
