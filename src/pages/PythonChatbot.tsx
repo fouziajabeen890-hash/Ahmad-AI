@@ -54,6 +54,7 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [isHandsFree, setIsHandsFree] = useState(false);
   const [showFounder, setShowFounder] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [chatHistory, setChatHistory] = useState<any[]>([]);
@@ -61,6 +62,24 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const recognitionRef = useRef<any>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.hash.split('?')[1]);
+    const queryParam = params.get('q');
+    const autoParam = params.get('auto');
+    
+    if (queryParam) {
+      setInput(decodeURIComponent(queryParam));
+      if (autoParam === 'true') {
+        setIsHandsFree(true);
+        // Small delay to ensure everything is ready
+        setTimeout(() => {
+          const sendBtn = document.getElementById('send-btn');
+          sendBtn?.click();
+        }, 500);
+      }
+    }
+  }, []);
 
   const clearChat = () => {
     setMessages([
@@ -132,7 +151,12 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
       setIsSpeaking(false);
     } else {
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.onend = () => setIsSpeaking(false);
+      utterance.onend = () => {
+        setIsSpeaking(false);
+        if (isHandsFree) {
+          setTimeout(() => toggleRecording(), 500);
+        }
+      };
       window.speechSynthesis.speak(utterance);
       setIsSpeaking(true);
     }
@@ -330,6 +354,10 @@ CRITICAL RULES:
       setMessages(updatedMessages);
       saveChat(updatedMessages);
       addXP(10); // Earn 10 XP for each AI interaction
+
+      if (isHandsFree && response.text) {
+        toggleSpeech(response.text);
+      }
     } catch (error) {
       console.error("AI Error:", error);
       const errorMsg: ChatMessage = {
@@ -389,6 +417,18 @@ CRITICAL RULES:
           </button>
           <button onClick={clearChat} className="p-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-400 transition-colors shadow-[0_0_10px_rgba(239,68,68,0.2)]" title="Clear Memory">
             <Trash2 className="w-5 h-5" />
+          </button>
+          <button 
+            onClick={() => setIsHandsFree(!isHandsFree)} 
+            className={cn(
+              "flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-all text-sm font-bold",
+              isHandsFree 
+                ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.3)]" 
+                : "bg-white/5 border-white/10 text-slate-400"
+            )}
+          >
+            {isHandsFree ? <Mic className="w-4 h-4 animate-pulse" /> : <MicOff className="w-4 h-4" />}
+            <span className="hidden sm:block">{isHandsFree ? "Hands-Free On" : "Hands-Free Off"}</span>
           </button>
         </div>
       </header>
@@ -516,6 +556,21 @@ CRITICAL RULES:
       {/* Input Area */}
       <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-8 bg-gradient-to-t from-[#030305] via-[#030305]/95 to-transparent z-20">
         <div className="max-w-4xl mx-auto relative">
+          {/* Voice Wave Visualization */}
+          {(isRecording || isSpeaking) && (
+            <div className="absolute -top-12 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 backdrop-blur-md z-30">
+              <div className="voice-wave">
+                <div className="voice-bar"></div>
+                <div className="voice-bar"></div>
+                <div className="voice-bar"></div>
+                <div className="voice-bar"></div>
+                <div className="voice-bar"></div>
+              </div>
+              <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest">
+                {isRecording ? "Listening..." : "AI Speaking..."}
+              </span>
+            </div>
+          )}
           
           {/* Quick Prompts */}
           {messages.length === 1 && !selectedFile && !input && (
@@ -598,6 +653,7 @@ CRITICAL RULES:
             />
             
             <button
+              id="send-btn"
               onClick={handleSend}
               disabled={isLoading || (!input.trim() && !selectedFile)}
               className="absolute right-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 disabled:opacity-50 disabled:from-indigo-600 disabled:to-purple-600 text-white rounded-xl w-12 h-12 flex items-center justify-center transition-all shadow-[0_0_20px_rgba(79,70,229,0.4)] group overflow-hidden"

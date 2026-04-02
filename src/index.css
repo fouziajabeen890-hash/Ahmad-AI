@@ -93,6 +93,35 @@
     100% { background-position: 0% 50%; }
   }
 
+  .neon-text {
+    text-shadow: 0 0 10px rgba(99, 102, 241, 0.5), 0 0 20px rgba(99, 102, 241, 0.3);
+  }
+
+  .voice-wave {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    height: 20px;
+  }
+
+  .voice-bar {
+    width: 3px;
+    height: 100%;
+    background: #6366f1;
+    border-radius: 10px;
+    animation: wave 1s ease-in-out infinite;
+  }
+
+  .voice-bar:nth-child(2) { animation-delay: 0.1s; height: 60%; }
+  .voice-bar:nth-child(3) { animation-delay: 0.2s; height: 80%; }
+  .voice-bar:nth-child(4) { animation-delay: 0.3s; height: 40%; }
+  .voice-bar:nth-child(5) { animation-delay: 0.4s; height: 70%; }
+
+  @keyframes wave {
+    0%, 100% { transform: scaleY(0.5); }
+    50% { transform: scaleY(1.5); }
+  }
+
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }

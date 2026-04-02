@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { GoogleGenAI } from '@google/genai';
 import { Code2, Sparkles, Loader2, AlertCircle, CheckCircle2, Terminal } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
@@ -9,6 +9,13 @@ export default function AICodeReview({ addXP }: { addXP: (amount: number) => voi
   const [code, setCode] = useState('');
   const [review, setReview] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const reviewEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (review && !isLoading) {
+      reviewEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [review, isLoading]);
 
   const handleReview = async () => {
     if (!code.trim()) return;
@@ -124,6 +131,7 @@ ${code}
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
                     {review}
                   </ReactMarkdown>
+                  <div ref={reviewEndRef} />
                 </motion.div>
               ) : (
                 <div className="h-full flex flex-col items-center justify-center text-slate-500 space-y-3">

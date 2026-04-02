@@ -4,7 +4,7 @@ import {
   PlayCircle, Code2, BrainCircuit, Sparkles, ChevronRight, Download, 
   Monitor, Smartphone, Laptop, CheckCircle2, Info, Trophy, Star, 
   Zap, Clock, Target, Rocket, Terminal, Play, RotateCcw, MessageSquare,
-  BarChart3, Layers, BookOpen, Cpu, User
+  BarChart3, Layers, BookOpen, Cpu, User, Mic
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
@@ -25,6 +25,33 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
   const [playgroundOutput, setPlaygroundOutput] = useState('');
   const [isExecuting, setIsExecuting] = useState(false);
   const [showRoadmap, setShowRoadmap] = useState(false);
+  const [isVoiceSearching, setIsVoiceSearching] = useState(false);
+  const recognitionRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+      if (SpeechRecognition) {
+        const recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.onresult = (event: any) => {
+          const transcript = event.results[0][0].transcript;
+          window.location.hash = `#/chatbot?q=${encodeURIComponent(transcript)}&auto=true`;
+        };
+        recognition.onend = () => setIsVoiceSearching(false);
+        recognitionRef.current = recognition;
+      }
+    }
+  }, []);
+
+  const startVoiceSearch = () => {
+    if (recognitionRef.current) {
+      setIsVoiceSearching(true);
+      recognitionRef.current.start();
+    } else {
+      alert("Voice recognition not supported in this browser.");
+    }
+  };
 
   const handlePlaygroundRun = async () => {
     setIsExecuting(true);
@@ -227,6 +254,36 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
               <p className="text-xl text-slate-300 mb-10 max-w-2xl font-light leading-relaxed">
                 The most advanced platform to learn Python. Interactive playgrounds, AI-powered code reviews, and a gamified experience that makes coding addictive.
               </p>
+
+              {/* Voice Search Bar */}
+              <div className="relative max-w-md mx-auto lg:mx-0 mb-10 group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity" />
+                <div className="relative flex items-center bg-black/40 border border-white/10 rounded-2xl p-1 backdrop-blur-xl">
+                  <div className="pl-4 text-slate-400">
+                    <Terminal className="w-5 h-5" />
+                  </div>
+                  <input 
+                    type="text" 
+                    placeholder="Ask anything about Python..." 
+                    className="flex-1 bg-transparent border-none focus:ring-0 text-white placeholder-slate-500 px-4 py-3 text-sm"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        window.location.hash = `#/chatbot?q=${encodeURIComponent((e.target as HTMLInputElement).value)}`;
+                      }
+                    }}
+                  />
+                  <button 
+                    onClick={startVoiceSearch}
+                    className={cn(
+                      "p-3 rounded-xl transition-all",
+                      isVoiceSearching ? "bg-red-500/20 text-red-400 animate-pulse" : "bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400"
+                    )}
+                  >
+                    {isVoiceSearching ? <div className="voice-wave"><div className="voice-bar"></div><div className="voice-bar"></div><div className="voice-bar"></div></div> : <Mic className="w-5 h-5" />}
+                  </button>
+                </div>
+              </div>
+
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
                 <Link 
                   to="/course" 
