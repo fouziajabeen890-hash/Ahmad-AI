@@ -22,7 +22,8 @@ export default function AICodeReview({ addXP }: { addXP: (amount: number) => voi
     
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      setReview('Error: GEMINI_API_KEY is missing. Please add it to your environment variables.');
+      setReview('⚠️ **API Key Missing!** Please add `GEMINI_API_KEY` to your Vercel Environment Variables and redeploy.');
+      setIsLoading(false);
       return;
     }
     const ai = new GoogleGenAI({ apiKey });
@@ -45,7 +46,7 @@ ${code}
 `;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-3.1-pro-preview',
+        model: 'gemini-3-flash-preview',
         contents: prompt,
       });
 

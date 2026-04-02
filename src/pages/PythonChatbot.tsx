@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { GoogleGenAI } from '@google/genai';
 import { Link } from 'react-router-dom';
-import { Send, Bot, User, Loader2, Paperclip, X, FileText, Mic, MicOff, Sparkles, Cpu, Trash2, Info, Check, Copy, Terminal, Activity, Zap, Volume2, VolumeX, History } from 'lucide-react';
+import { Send, Bot, User, Loader2, Paperclip, X, FileText, Mic, MicOff, Sparkles, Cpu, Trash2, Info, Check, Copy, Terminal, Activity, Zap, Volume2, VolumeX, History, AlertCircle } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { motion, AnimatePresence } from 'motion/react';
@@ -280,7 +280,13 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      console.error("GEMINI_API_KEY is missing.");
+      const errorMsg: ChatMessage = {
+        id: (Date.now() + 1).toString(),
+        role: 'model',
+        text: '⚠️ **API Key Missing!** Please add `GEMINI_API_KEY` to your Vercel Environment Variables and redeploy.'
+      };
+      setMessages(prev => [...prev, errorMsg]);
+      setIsLoading(false);
       return;
     }
     const ai = new GoogleGenAI({ apiKey });
@@ -333,7 +339,7 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
       contents.push({ role: 'user', parts: currentParts });
 
       const response = await ai.models.generateContent({
-        model: 'gemini-3.1-pro-preview',
+        model: 'gemini-3-flash-preview',
         contents: contents,
         config: {
           systemInstruction: `You are "AhmadShahid AI Ultra", the most advanced, world-class Python Architect and AI assistant in existence. You possess deep, expert-level knowledge of Python internals, advanced design patterns, performance optimization, and cutting-edge libraries.
@@ -381,6 +387,14 @@ CRITICAL RULES:
 
       {/* Header */}
       <header className="h-16 border-b border-white/5 flex items-center justify-between px-6 bg-black/20 backdrop-blur-xl shrink-0 z-10">
+        {!process.env.GEMINI_API_KEY && (
+          <div className="absolute top-full left-0 right-0 bg-red-500/20 border-b border-red-500/30 py-2 px-6 backdrop-blur-md flex items-center justify-center gap-3 z-50">
+            <AlertCircle className="w-4 h-4 text-red-400" />
+            <p className="text-[10px] font-bold text-red-300 uppercase tracking-widest">
+              Critical: GEMINI_API_KEY is missing in Vercel. AI features are disabled.
+            </p>
+          </div>
+        )}
         <div className="flex items-center gap-4">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-600/20 border border-indigo-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(79,70,229,0.2)] relative group overflow-hidden">
             <div className="absolute inset-0 bg-indigo-500/20 rounded-xl blur-md group-hover:blur-lg transition-all"></div>
