@@ -3,7 +3,6 @@ import { Mail, Lock, User, ArrowRight, Github, CheckCircle2, AlertCircle, BrainC
 import { signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth, googleProvider, db } from '../firebase';
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
-import { handleFirestoreError, OperationType } from '../lib/firestore-errors';
 
 const getErrorMessage = (err: any) => {
   if (err.code === 'auth/unauthorized-domain') {

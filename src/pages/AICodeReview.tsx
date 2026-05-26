@@ -20,37 +20,20 @@ export default function AICodeReview({ addXP }: { addXP: (amount: number) => voi
   const handleReview = async () => {
     if (!code.trim()) return;
     
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      setReview('⚠️ **API Key Missing!** Please add `GEMINI_API_KEY` to your Vercel Environment Variables and redeploy.');
-      setIsLoading(false);
-      return;
-    }
-    const ai = new GoogleGenAI({ apiKey });
-
     setIsLoading(true);
     setReview('');
     
     try {
-      const prompt = `You are an expert Python code reviewer. Analyze the following Python code.
-Provide a concise review covering:
-1. Potential Bugs or Errors
-2. Performance Improvements
-3. Best Practices & PEP 8 compliance
-4. A refactored version of the code (if applicable)
-
-Code to review:
-\`\`\`python
-${code}
-\`\`\`
-`;
-
-      const response = await ai.models.generateContent({
-        model: 'gemini-3-flash-preview',
-        contents: prompt,
+      const response = await fetch('/api/review', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code })
       });
 
-      setReview(response.text || 'No review generated.');
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Failed to generate review');
+
+      setReview(data.text || 'No review generated.');
       addXP(50); // Earn 50 XP for a code review
     } catch (error) {
       console.error('Error generating review:', error);

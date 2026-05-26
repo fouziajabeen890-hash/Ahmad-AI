@@ -1,6 +1,6 @@
 import { useState, useEffect, Component, ErrorInfo, ReactNode } from 'react';
 import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Trophy, Menu, X, Home as HomeIcon, BookOpen, LogOut, Loader2, MessageSquare, PlayCircle, Bot, BrainCircuit, Sparkles, AlertTriangle, RefreshCw } from 'lucide-react';
+import { Trophy, Menu, X, Home as HomeIcon, BookOpen, LogOut, Loader2, MessageSquare, PlayCircle, Bot, BrainCircuit, Sparkles, AlertTriangle, RefreshCw, Terminal as TerminalIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Home from './pages/Home';
 import Course from './pages/Course';
@@ -10,6 +10,8 @@ import VideoLectures from './pages/VideoLectures';
 import PythonChatbot from './pages/PythonChatbot';
 import FoundationOfAI from './pages/FoundationOfAI';
 import AICodeReview from './pages/AICodeReview';
+import PythonTerminal from './pages/PythonTerminal';
+import AIQuiz from './pages/AIQuiz';
 import { cn } from './lib/utils';
 import { auth } from './firebase';
 import { onAuthStateChanged, signOut, User } from 'firebase/auth';
@@ -222,6 +224,36 @@ function Layout({ children, user, onLogout }: LayoutProps) {
               </div>
             </Link>
             
+            <Link 
+              to="/terminal" 
+              onClick={() => setMenuOpen(false)}
+              className={cn(
+                "flex items-center gap-3 px-6 py-4 hover:bg-white/5 transition-colors",
+                location.pathname === '/terminal' ? "text-indigo-400 border-l-2 border-indigo-500 bg-indigo-500/10" : "text-slate-300 border-l-2 border-transparent"
+              )}
+            >
+              <TerminalIcon className="w-5 h-5" />
+              <div className="flex flex-col">
+                <span className="font-medium">Python Terminal</span>
+                <span className="text-xs text-slate-500">Run code in browser</span>
+              </div>
+            </Link>
+
+            <Link 
+              to="/ai-quiz" 
+              onClick={() => setMenuOpen(false)}
+              className={cn(
+                "flex items-center gap-3 px-6 py-4 hover:bg-white/5 transition-colors",
+                location.pathname === '/ai-quiz' ? "text-indigo-400 border-l-2 border-indigo-500 bg-indigo-500/10" : "text-slate-300 border-l-2 border-transparent"
+              )}
+            >
+              <BrainCircuit className="w-5 h-5" />
+              <div className="flex flex-col">
+                <span className="font-medium">AI Python Quiz</span>
+                <span className="text-xs text-slate-500">Test your knowledge</span>
+              </div>
+            </Link>
+            
             <div className="mt-auto pt-4 border-t border-white/5 sm:hidden">
               <button 
                 onClick={() => {
@@ -342,6 +374,8 @@ export default function App() {
             <Route path="/reviews" element={<Reviews />} />
             <Route path="/chatbot" element={<PythonChatbot addXP={addXP} />} />
             <Route path="/code-review" element={<AICodeReview addXP={addXP} />} />
+            <Route path="/terminal" element={<PythonTerminal addXP={addXP} />} />
+            <Route path="/ai-quiz" element={<AIQuiz addXP={addXP} />} />
             <Route path="/foundation" element={<FoundationOfAI />} />
           </Routes>
         </Layout>

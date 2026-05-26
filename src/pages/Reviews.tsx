@@ -140,7 +140,7 @@ export default function Reviews() {
                     <div>
                       <h3 className="font-medium text-slate-200">{review.userName}</h3>
                       <p className="text-xs text-slate-500">
-                        {review.createdAt?.toDate ? review.createdAt.toDate().toLocaleDateString() : 'Just now'}
+                        {review.createdAt ? new Date(review.createdAt as any).toLocaleDateString() : 'Just now'}
                       </p>
                     </div>
                   </div>

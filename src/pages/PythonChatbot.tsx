@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import { GoogleGenAI } from '@google/genai';
 import { Link } from 'react-router-dom';
 import { Send, Bot, User, Loader2, Paperclip, X, FileText, Mic, MicOff, Sparkles, Cpu, Trash2, Info, Check, Copy, Terminal, Activity, Zap, Volume2, VolumeX, History, AlertCircle } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
@@ -278,20 +277,7 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
   const handleSend = async () => {
     if ((!input.trim() && !selectedFile) || isLoading) return;
 
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      const errorMsg: ChatMessage = {
-        id: (Date.now() + 1).toString(),
-        role: 'model',
-        text: '⚠️ **API Key Missing!** Please add `GEMINI_API_KEY` to your Vercel Environment Variables and redeploy.'
-      };
-      setMessages(prev => [...prev, errorMsg]);
-      setIsLoading(false);
-      return;
-    }
-    const ai = new GoogleGenAI({ apiKey });
-
-    const userMsg: ChatMessage = { 
+    const userMsg: ChatMessage = {
       id: Date.now().toString(), 
       role: 'user', 
       text: input.trim(),
@@ -338,31 +324,27 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
 
       contents.push({ role: 'user', parts: currentParts });
 
-      const response = await ai.models.generateContent({
-        model: 'gemini-3-flash-preview',
-        contents: contents,
-        config: {
-          systemInstruction: `You are "AhmadShahid AI Ultra", the most advanced, world-class Python Architect and AI assistant in existence. You possess deep, expert-level knowledge of Python internals, advanced design patterns, performance optimization, and cutting-edge libraries.
-CRITICAL RULES:
-1. ONLY answer questions about Python programming. If asked about anything else, politely decline and state that your neural pathways are strictly optimized for Python.
-2. Keep your answers STRICTLY to a maximum of 78 lines. Be highly informative, professional, and expert-level, but stay within this limit.
-3. You can reply in English or Roman Urdu/Hindi. Maintain a highly professional, advanced AI persona.
-4. If the user uploads a file or image, analyze it assuming it is related to Python (e.g., Python code, errors, flowcharts, datasets). If it's not related to Python, politely decline.`
-        }
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contents })
       });
+      
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Failed to generate response');
 
       const modelMsg: ChatMessage = {
         id: (Date.now() + 1).toString(),
         role: 'model',
-        text: response.text || 'Sorry, I could not generate a response.'
+        text: data.text || 'Sorry, I could not generate a response.'
       };
       const updatedMessages = [...messages, userMsg, modelMsg];
       setMessages(updatedMessages);
       saveChat(updatedMessages);
       addXP(10); // Earn 10 XP for each AI interaction
 
-      if (isHandsFree && response.text) {
-        toggleSpeech(response.text);
+      if (isHandsFree && data.text) {
+        toggleSpeech(data.text);
       }
     } catch (error) {
       console.error("AI Error:", error);
@@ -387,14 +369,6 @@ CRITICAL RULES:
 
       {/* Header */}
       <header className="h-16 border-b border-white/5 flex items-center justify-between px-6 bg-black/20 backdrop-blur-xl shrink-0 z-10">
-        {!process.env.GEMINI_API_KEY && (
-          <div className="absolute top-full left-0 right-0 bg-red-500/20 border-b border-red-500/30 py-2 px-6 backdrop-blur-md flex items-center justify-center gap-3 z-50">
-            <AlertCircle className="w-4 h-4 text-red-400" />
-            <p className="text-[10px] font-bold text-red-300 uppercase tracking-widest">
-              Critical: GEMINI_API_KEY is missing in Vercel. AI features are disabled.
-            </p>
-          </div>
-        )}
         <div className="flex items-center gap-4">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-600/20 border border-indigo-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(79,70,229,0.2)] relative group overflow-hidden">
             <div className="absolute inset-0 bg-indigo-500/20 rounded-xl blur-md group-hover:blur-lg transition-all"></div>
@@ -510,13 +484,14 @@ CRITICAL RULES:
                       <ReactMarkdown 
                         remarkPlugins={[remarkGfm]}
                         components={{
-                          code({node, inline, className, children, ...props}: any) {
+                          p: ({node, children, ...props}: any) => <div className="mb-4 last:mb-0" {...props}>{children}</div>,
+                          code({node, className, children, ...props}: any) {
                             const match = /language-(\w+)/.exec(className || '');
                             const codeString = String(children).replace(/\n$/, '');
-                            return !inline ? (
+                            return match ? (
                               <div className="relative group">
                                 <div className="flex items-center justify-between px-4 py-2 bg-white/5 border-b border-white/10">
-                                  <span className="text-xs font-mono text-slate-400">{match?.[1] || 'code'}</span>
+                                  <span className="text-xs font-mono text-slate-400">{match[1]}</span>
                                   <CopyButton text={codeString} />
                                 </div>
                                 <div className="p-4 overflow-x-auto custom-scrollbar">
@@ -526,7 +501,7 @@ CRITICAL RULES:
                                 </div>
                               </div>
                             ) : (
-                              <code className="bg-white/10 px-1.5 py-0.5 rounded-md text-indigo-300 font-mono text-[0.9em]" {...props}>
+                              <code className={cn("bg-white/10 px-1.5 py-0.5 rounded-md text-indigo-300 font-mono text-[0.9em]", className)} {...props}>
                                 {children}
                               </code>
                             )
