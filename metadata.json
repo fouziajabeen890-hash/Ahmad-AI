@@ -1,5 +1,5 @@
 {
-  "name": "Mr Ahmad PYTHON TUTORIAL AND AI",
+  "name": "Mr Ahmad",
   "description": "Advanced Python AI Assistant & Code Reviewer",
   "requestFramePermissions": ["microphone"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

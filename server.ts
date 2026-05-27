@@ -23,10 +23,10 @@ app.post('/api/chat', async (req, res) => {
     
     const ai = new GoogleGenAI({ apiKey });
     const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
+      model: 'gemini-2.5-flash',
       contents: contents,
       config: {
-        systemInstruction: `You are "AhmadShahid AI Ultra", the most advanced, world-class Python Architect and AI assistant in existence. You possess deep, expert-level knowledge of Python internals, advanced design patterns, performance optimization, and cutting-edge libraries.
+        systemInstruction: `You are "Mr Ahmad AI Ultra", the most advanced, world-class Python Architect and AI assistant in existence. You possess deep, expert-level knowledge of Python internals, advanced design patterns, performance optimization, and cutting-edge libraries.
 CRITICAL RULES:
 1. ONLY answer questions about Python programming. If asked about anything else, politely decline and state that your neural pathways are strictly optimized for Python.
 2. Keep your answers STRICTLY to a maximum of 78 lines. Be highly informative, professional, and expert-level, but stay within this limit.
@@ -64,7 +64,7 @@ ${code}
 \`\`\`
 `;
     const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
+      model: 'gemini-2.5-flash',
       contents: prompt,
     });
     
@@ -94,7 +94,7 @@ Output the quiz strictly in JSON format as an array of objects. Each object must
 Return ONLY valid JSON and no other text or markdown block formatting.`;
     
     const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
+      model: 'gemini-2.5-flash',
       contents: prompt,
       config: {
         responseMimeType: 'application/json'
@@ -102,6 +102,8 @@ Return ONLY valid JSON and no other text or markdown block formatting.`;
     });
     
     let jsonContent = response.text || "[]";
+    // Strip markdown JSON block if present
+    jsonContent = jsonContent.replace(/```json/g, '').replace(/```/g, '').trim();
     const parsed = JSON.parse(jsonContent);
     res.json(parsed);
   } catch (error: any) {
