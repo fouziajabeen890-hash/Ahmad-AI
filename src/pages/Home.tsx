@@ -106,7 +106,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
     // Check if already installed
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone === true;
     if (isStandalone) {
-      setDownloadMsg('Welcome back! You are using the MRS AHMAD SHAHID app.');
+      setDownloadMsg('Welcome back! You are using the Mr Ahmad app.');
     }
   }, []);
 
@@ -185,7 +185,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
             clearInterval(timer);
             setIsDownloading(false);
             setShowAutoModal(false);
-            setDownloadMsg("MRS AHMAD SHAHID PYTHON TUTORIAL AND AI is now on your home screen!");
+            setDownloadMsg("Mr Ahmad PYTHON TUTORIAL AND AI is now on your home screen!");
           }
         }, interval);
       }
@@ -200,7 +200,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       if (outcome === 'accepted') {
-        setDownloadMsg(`MRS AHMAD SHAHID PYTHON TUTORIAL AND AI has been added to your home screen!`);
+        setDownloadMsg(`Mr Ahmad PYTHON TUTORIAL AND AI has been added to your home screen!`);
         setDeferredPrompt(null);
       }
     } else if (isIOS) {
@@ -562,7 +562,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-indigo-500/20 border border-indigo-500/30 mb-4">
                 <Download className="w-6 h-6 text-indigo-400" />
               </div>
-              <h2 className="text-2xl font-bold text-white mb-2">Download MRS AHMAD SHAHID</h2>
+              <h2 className="text-2xl font-bold text-white mb-2">Download Mr Ahmad</h2>
               <p className="text-slate-400 mb-8 max-w-md mx-auto">Take the power of advanced AI anywhere. Install it as a native app on your device.</p>
               
               <div className="flex flex-wrap items-center justify-center gap-4">
@@ -717,7 +717,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
                   <div className="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg mb-6">
                     <BrainCircuit className="w-10 h-10 text-white" />
                   </div>
-                  <h2 className="text-2xl font-bold text-white mb-3">Install MRS AHMAD SHAHID</h2>
+                  <h2 className="text-2xl font-bold text-white mb-3">Install Mr Ahmad</h2>
                   
                   {isDownloading ? (
                     <div className="mb-8">
@@ -730,7 +730,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
                           transition={{ duration: 0.1 }}
                         />
                       </div>
-                      <p className="text-slate-500 text-xs mt-2">MRS AHMAD SHAHID is being added to your apps.</p>
+                      <p className="text-slate-500 text-xs mt-2">Mr Ahmad is being added to your apps.</p>
                     </div>
                   ) : !deferredPrompt && !isIOS ? (
                     <div className="text-left space-y-4 mb-8">
@@ -792,7 +792,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
                     </div>
                   ) : (
                     <>
-                      <p className="text-slate-400 mb-8">Install MRS AHMAD SHAHID on your home screen instantly. It's fast, free, and works offline!</p>
+                      <p className="text-slate-400 mb-8">Install Mr Ahmad on your home screen instantly. It's fast, free, and works offline!</p>
                       
                       <div className="flex flex-col gap-3">
                         <button

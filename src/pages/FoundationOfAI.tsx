@@ -34,15 +34,15 @@ export default function FoundationOfAI() {
                 <Sparkles className="w-3 h-3" />
                 Foundation of AI
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 mb-2 animate-gradient-x">Ahmad Shahid</h1>
+              <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 mb-2 animate-gradient-x">Mr Ahmad</h1>
               <h2 className="text-xl text-indigo-300 font-medium tracking-wide mb-6">Visionary AI Architect & Founder</h2>
               
               <div className="space-y-4 text-slate-300 leading-relaxed text-lg font-light">
                 <p>
-                  Ahmad Shahid is a pioneering software engineer and AI specialist with a profound passion for Python and next-generation intelligent systems.
+                  Mr Ahmad is a pioneering software engineer and AI specialist with a profound passion for Python and next-generation intelligent systems.
                 </p>
                 <p>
-                  With extensive experience in scalable architectures, machine learning, and full-stack development, Ahmad engineered <strong>AhmadShahid AI Ultra</strong> to revolutionize how developers interact with code. His vision is to bridge the gap between complex programming concepts and intuitive AI assistance.
+                  With extensive experience in scalable architectures, machine learning, and full-stack development, Mr Ahmad engineered <strong>Mr Ahmad AI Ultra</strong> to revolutionize how developers interact with code. His vision is to bridge the gap between complex programming concepts and intuitive AI assistance.
                 </p>
               </div>
               

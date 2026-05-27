@@ -142,7 +142,7 @@ export default function Auth({ onLogin }: { onLogin: (user: any) => void }) {
           </div>
           <div className="flex flex-col">
             <h1 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300 tracking-tight leading-none">
-              AhmadShahid
+              Mr Ahmad
             </h1>
             <span className="text-sm font-bold text-indigo-400 uppercase tracking-widest mt-1">
               Tutorial & AI
@@ -205,7 +205,7 @@ export default function Auth({ onLogin }: { onLogin: (user: any) => void }) {
           </div>
           <div className="flex flex-col">
             <h1 className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300 tracking-tight leading-none">
-              AhmadShahid
+              Mr Ahmad
             </h1>
             <span className="text-[11px] font-bold text-indigo-400 uppercase tracking-widest mt-0.5">
               Tutorial & AI

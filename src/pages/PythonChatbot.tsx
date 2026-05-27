@@ -45,7 +45,7 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
     {
       id: 'welcome',
       role: 'model',
-      text: `Greetings. I am **AhmadShahid AI Ultra**, the most advanced Python architecture and development assistant in existence. I possess world-class expertise in Python internals, design patterns, and optimization. I strictly answer Python-related queries within a 78-line limit. You may provide code, images, PDFs, or use voice input. How may I accelerate your development today?`
+      text: `Greetings. I am **Mr Ahmad AI Ultra**, the most advanced Python architecture and development assistant in existence. I possess world-class expertise in Python internals, design patterns, and optimization. I strictly answer Python-related queries within a 78-line limit. You may provide code, images, PDFs, or use voice input. How may I accelerate your development today?`
     }
   ]);
   const [input, setInput] = useState('');
@@ -85,7 +85,7 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
       {
         id: 'welcome',
         role: 'model',
-        text: `Greetings. I am **AhmadShahid AI Ultra**, the most advanced Python architecture and development assistant in existence. I possess world-class expertise in Python internals, design patterns, and optimization. I strictly answer Python-related queries within a 78-line limit. You may provide code, images, PDFs, or use voice input. How may I accelerate your development today?`
+        text: `Greetings. I am **Mr Ahmad AI Ultra**, the most advanced Python architecture and development assistant in existence. I possess world-class expertise in Python internals, design patterns, and optimization. I strictly answer Python-related queries within a 78-line limit. You may provide code, images, PDFs, or use voice input. How may I accelerate your development today?`
       }
     ]);
     setCurrentChatId(null);
@@ -377,7 +377,7 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
           </div>
           <div>
             <h2 className="font-bold text-slate-100 tracking-wide flex items-center gap-2">
-              AhmadShahid AI <span className="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-[10px] uppercase tracking-wider border border-indigo-500/30 font-bold shadow-[0_0_10px_rgba(79,70,229,0.3)] glow-border">Ultra</span>
+              Mr Ahmad AI <span className="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-[10px] uppercase tracking-wider border border-indigo-500/30 font-bold shadow-[0_0_10px_rgba(79,70,229,0.3)] glow-border">Ultra</span>
             </h2>
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1.5">
@@ -655,11 +655,11 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
         <div className="flex flex-col items-center justify-center gap-2 mt-4">
           <div className="flex items-center gap-2">
             <Sparkles className="w-3 h-3 text-indigo-500/50" />
-            <p className="text-[10px] text-center text-slate-500 font-medium tracking-widest uppercase">AhmadShahid AI Ultra • Max 78 Lines • Python Only</p>
+            <p className="text-[10px] text-center text-slate-500 font-medium tracking-widest uppercase">Mr Ahmad AI Ultra • Max 78 Lines • Python Only</p>
             <Sparkles className="w-3 h-3 text-indigo-500/50" />
           </div>
           <p className="text-xs text-slate-400 text-center">
-            Engineered with <span className="text-red-500">♥</span> by <button onClick={() => setShowFounder(true)} className="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors">Ahmad Shahid</button>
+            Engineered with <span className="text-red-500">♥</span> by <button onClick={() => setShowFounder(true)} className="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors">Mr Ahmad</button>
           </p>
           <Link to="/foundation" className="mt-2 flex flex-col items-center gap-1 hover:scale-105 transition-transform group">
             <h3 className="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 group-hover:from-indigo-300 group-hover:to-purple-300 transition-colors">Foundation of AI</h3>
@@ -683,15 +683,15 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
                 <Terminal className="w-10 h-10 text-indigo-400 relative z-10" />
               </div>
               <div className="mt-14">
-                <h3 className="text-2xl font-bold text-white tracking-tight">Ahmad Shahid</h3>
+                <h3 className="text-2xl font-bold text-white tracking-tight">Mr Ahmad</h3>
                 <p className="text-indigo-400 font-medium text-sm mt-1 uppercase tracking-wider">Visionary AI Architect & Founder</p>
                 
                 <div className="mt-6 space-y-4 text-slate-300 text-sm leading-relaxed">
                   <p>
-                    Ahmad Shahid is a pioneering software engineer and AI specialist with a profound passion for Python and next-generation intelligent systems. 
+                    Mr Ahmad is a pioneering software engineer and AI specialist with a profound passion for Python and next-generation intelligent systems. 
                   </p>
                   <p>
-                    With extensive experience in scalable architectures, machine learning, and full-stack development, Ahmad engineered <strong>AhmadShahid AI Ultra</strong> to revolutionize how developers interact with code. His vision is to bridge the gap between complex programming concepts and intuitive AI assistance.
+                    With extensive experience in scalable architectures, machine learning, and full-stack development, Mr Ahmad engineered <strong>Mr Ahmad AI Ultra</strong> to revolutionize how developers interact with code. His vision is to bridge the gap between complex programming concepts and intuitive AI assistance.
                   </p>
                   <div className="pt-4 mt-4 border-t border-white/10 flex flex-wrap gap-2">
                     <span className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs">Python Expert</span>
