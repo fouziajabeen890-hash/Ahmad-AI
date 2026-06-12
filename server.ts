@@ -10,6 +10,7 @@ import cors from 'cors';
 dotenv.config();
 
 const app = express();
+app.set('trust proxy', 1); // Trust first proxy for rate limiting behind Cloud Run/Nginx
 const PORT = 3000;
 
 // Security Middleware
@@ -25,6 +26,7 @@ const apiLimiter = rateLimit({
   message: 'Too many requests from this IP, please try again later',
   standardHeaders: true, 
   legacyHeaders: false, 
+  validate: { xForwardedForHeader: false } // Disable Forwarded header validation
 });
 
 app.use('/api/', apiLimiter);
