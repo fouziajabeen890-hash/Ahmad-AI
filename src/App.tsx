@@ -286,14 +286,19 @@ export default function App() {
     // Check for dummy user first
     const savedUser = localStorage.getItem('ahmad_shahid_user');
     if (savedUser) {
-      const parsedUser = JSON.parse(savedUser);
-      // Ensure dummy users have no photoURL
-      if (parsedUser.isDummy) {
-        delete parsedUser.photoURL;
+      try {
+        const parsedUser = JSON.parse(savedUser);
+        // Ensure dummy users have no photoURL
+        if (parsedUser.isDummy) {
+          delete parsedUser.photoURL;
+        }
+        setUser(parsedUser);
+        setLoading(false);
+        return;
+      } catch (e) {
+        console.error("Error parsing user from localStorage", e);
+        localStorage.removeItem('ahmad_shahid_user');
       }
-      setUser(parsedUser);
-      setLoading(false);
-      return;
     }
 
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -320,8 +325,22 @@ export default function App() {
       delete userWithXP.photoURL;
     }
 
+    const safeUserToSave = {
+      uid: userWithXP.uid,
+      email: userWithXP.email,
+      displayName: userWithXP.displayName,
+      isDummy: userWithXP.isDummy,
+      xp: userWithXP.xp,
+      level: userWithXP.level,
+      nextLevelXP: userWithXP.nextLevelXP
+    };
+
     setUser(userWithXP);
-    localStorage.setItem('ahmad_shahid_user', JSON.stringify(userWithXP));
+    try {
+      localStorage.setItem('ahmad_shahid_user', JSON.stringify(safeUserToSave));
+    } catch (e) {
+      console.error("Failed to save user to cache:", e);
+    }
   };
 
   const addXP = (amount: number) => {
@@ -336,8 +355,23 @@ export default function App() {
     }
 
     const updatedUser = { ...user, xp: newXP, level: newLevel, nextLevelXP };
+    
+    const safeUserToSave = {
+      uid: updatedUser.uid,
+      email: updatedUser.email,
+      displayName: updatedUser.displayName,
+      isDummy: updatedUser.isDummy,
+      xp: updatedUser.xp,
+      level: updatedUser.level,
+      nextLevelXP: updatedUser.nextLevelXP
+    };
+
     setUser(updatedUser);
-    localStorage.setItem('ahmad_shahid_user', JSON.stringify(updatedUser));
+    try {
+      localStorage.setItem('ahmad_shahid_user', JSON.stringify(safeUserToSave));
+    } catch (e) {
+      console.error("Failed to save user to cache:", e);
+    }
   };
 
   const handleLogout = async () => {
