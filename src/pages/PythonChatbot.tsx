@@ -203,14 +203,17 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
     try {
       const q = query(
         collection(db, path),
-        where('userId', '==', auth.currentUser.uid),
-        orderBy('updatedAt', 'desc')
+        where('userId', '==', auth.currentUser.uid)
       );
       const querySnapshot = await getDocs(q);
       const history = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
-      }));
+      })).sort((a: any, b: any) => {
+        const timeA = a.updatedAt?.toMillis?.() || 0;
+        const timeB = b.updatedAt?.toMillis?.() || 0;
+        return timeB - timeA;
+      });
       setChatHistory(history);
     } catch (error) {
       handleFirestoreError(error, OperationType.GET, path);
