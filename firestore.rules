@@ -107,7 +107,7 @@ service cloud.firestore {
     }
 
     match /reviews/{reviewId} {
-      allow read: if isAuthenticated();
+      allow read: if true;
       
       allow create: if isAuthenticated() && 
                     hasRequiredFields(['userId', 'userName', 'rating', 'comment', 'createdAt']) &&

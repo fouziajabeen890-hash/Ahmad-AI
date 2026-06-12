@@ -11,7 +11,6 @@ import PythonChatbot from './pages/PythonChatbot';
 import FoundationOfAI from './pages/FoundationOfAI';
 import AICodeReview from './pages/AICodeReview';
 import PythonTerminal from './pages/PythonTerminal';
-import AIQuiz from './pages/AIQuiz';
 import { cn } from './lib/utils';
 import { auth } from './firebase';
 import { onAuthStateChanged, signOut, User } from 'firebase/auth';
@@ -239,21 +238,6 @@ function Layout({ children, user, onLogout }: LayoutProps) {
               </div>
             </Link>
 
-            <Link 
-              to="/ai-quiz" 
-              onClick={() => setMenuOpen(false)}
-              className={cn(
-                "flex items-center gap-3 px-6 py-4 hover:bg-white/5 transition-colors",
-                location.pathname === '/ai-quiz' ? "text-indigo-400 border-l-2 border-indigo-500 bg-indigo-500/10" : "text-slate-300 border-l-2 border-transparent"
-              )}
-            >
-              <BrainCircuit className="w-5 h-5" />
-              <div className="flex flex-col">
-                <span className="font-medium">AI Python Quiz</span>
-                <span className="text-xs text-slate-500">Test your knowledge</span>
-              </div>
-            </Link>
-            
             <div className="mt-auto pt-4 border-t border-white/5 sm:hidden">
               <button 
                 onClick={() => {
@@ -272,6 +256,25 @@ function Layout({ children, user, onLogout }: LayoutProps) {
 
       {children}
     </div>
+  );
+}
+
+function AnimatedRoutes({ user, addXP }: { user: any, addXP: (amount: number) => void }) {
+  const location = useLocation();
+  
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col min-h-0"><Home user={user} addXP={addXP} /></motion.div>} />
+        <Route path="/videos" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col min-h-0"><VideoLectures /></motion.div>} />
+        <Route path="/course" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col min-h-0"><Course /></motion.div>} />
+        <Route path="/reviews" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col min-h-0"><Reviews /></motion.div>} />
+        <Route path="/chatbot" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><PythonChatbot addXP={addXP} /></motion.div>} />
+        <Route path="/code-review" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><AICodeReview addXP={addXP} /></motion.div>} />
+        <Route path="/terminal" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><PythonTerminal addXP={addXP} /></motion.div>} />
+        <Route path="/foundation" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><FoundationOfAI /></motion.div>} />
+      </Routes>
+    </AnimatePresence>
   );
 }
 
@@ -367,17 +370,7 @@ export default function App() {
     <ErrorBoundary>
       <Router>
         <Layout user={user} onLogout={handleLogout} addXP={addXP}>
-          <Routes>
-            <Route path="/" element={<Home user={user} addXP={addXP} />} />
-            <Route path="/videos" element={<VideoLectures />} />
-            <Route path="/course" element={<Course />} />
-            <Route path="/reviews" element={<Reviews />} />
-            <Route path="/chatbot" element={<PythonChatbot addXP={addXP} />} />
-            <Route path="/code-review" element={<AICodeReview addXP={addXP} />} />
-            <Route path="/terminal" element={<PythonTerminal addXP={addXP} />} />
-            <Route path="/ai-quiz" element={<AIQuiz addXP={addXP} />} />
-            <Route path="/foundation" element={<FoundationOfAI />} />
-          </Routes>
+          <AnimatedRoutes user={user} addXP={addXP} />
         </Layout>
       </Router>
     </ErrorBoundary>

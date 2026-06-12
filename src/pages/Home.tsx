@@ -8,7 +8,6 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
-import { GoogleGenAI } from "@google/genai";
 
 export default function Home({ user, addXP }: { user: any, addXP: (amount: number) => void }) {
   const [downloadMsg, setDownloadMsg] = useState('');
@@ -59,16 +58,16 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
     
     try {
       // Simulate execution with AI feedback
-      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-      const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
-        contents: `You are a Python interpreter. Execute or explain the output of this code as if you were a real Python console. If there are errors, show them. Keep it concise. Code:\n\n${playgroundCode}`,
-        config: {
-          systemInstruction: "You are a Python console. Output only what the code would print, or a brief explanation of the result. If it's a code snippet, simulate the output.",
-        }
+      const response = await fetch('/api/playground', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: playgroundCode })
       });
       
-      setPlaygroundOutput(response.text || 'No output.');
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Failed to generate output');
+      
+      setPlaygroundOutput(data.text || 'No output.');
       addXP(15); // Reward for using playground
     } catch (error) {
       setPlaygroundOutput('Error: Could not connect to the Python engine. Please try again.');
@@ -468,15 +467,22 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
           </motion.div>
         </div>
 
-        {/* Feature Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+      {/* Feature Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {[
+            {
+              icon: BookOpen,
+              color: "amber",
+              title: "Interactive Course",
+              desc: "Gamified Python path.",
+              link: "/course"
+            },
             {
               icon: PlayCircle,
               color: "indigo",
-              title: "Video Course",
+              title: "Video Lectures",
               desc: "Complete Python A-Z lectures.",
-              link: "/course"
+              link: "/videos"
             },
             {
               icon: BrainCircuit,
@@ -488,14 +494,28 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
             {
               icon: Sparkles,
               color: "pink",
-              title: "Code Review",
+              title: "AI Code Review",
               desc: "Analyze & debug your code.",
               link: "/code-review"
             },
             {
-              icon: MessageSquare,
+              icon: Terminal,
               color: "emerald",
-              title: "Reviews",
+              title: "Python Terminal",
+              desc: "Run & test code instantly.",
+              link: "/terminal"
+            },
+            {
+              icon: Layers,
+              color: "orange",
+              title: "Foundation of AI",
+              desc: "Learn core AI concepts.",
+              link: "/foundation"
+            },
+            {
+              icon: MessageSquare,
+              color: "cyan",
+              title: "Student Reviews",
               desc: "See what others are saying.",
               link: "/reviews"
             }

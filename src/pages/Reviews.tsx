@@ -100,11 +100,13 @@ export default function Reviews() {
               <textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
+                maxLength={2000}
                 required
                 rows={4}
                 className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 resize-none shadow-inner transition-all"
                 placeholder="How was your experience with the course? Did it help you learn Python?"
               />
+              <p className="text-xs text-slate-500 mt-2 text-right">{comment.length}/2000</p>
             </div>
 
             <div className="flex justify-end pt-2">

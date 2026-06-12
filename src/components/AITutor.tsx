@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
 import { Lecture, Message } from '../types';
-import { GoogleGenAI } from '@google/genai';
 import { Send, Bot, User, Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -44,18 +43,6 @@ export default function AITutor({ currentLecture }: AITutorProps) {
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      console.error('GEMINI_API_KEY is missing.');
-      setMessages(prev => [...prev, {
-        id: Date.now().toString(),
-        role: 'model',
-        text: 'Error: GEMINI_API_KEY is missing. Please configure it in the Secrets panel.'
-      }]);
-      return;
-    }
-    const ai = new GoogleGenAI({ apiKey });
-
     const userMsg: Message = { id: Date.now().toString(), role: 'user', text: input.trim() };
     setMessages(prev => [...prev, userMsg]);
     setInput('');
@@ -68,28 +55,23 @@ export default function AITutor({ currentLecture }: AITutorProps) {
       }));
       contents.push({ role: 'user', parts: [{ text: userMsg.text }] });
 
-      const response = await ai.models.generateContent({
-        model: 'gemini-3.1-pro-preview',
-        contents: contents,
-        config: {
-          systemInstruction: `You are an elite, professional Python programming tutor. The student is currently watching the lecture: "${currentLecture.title}". 
-          
-Lecture Context: ${currentLecture.description}
-
-Your responsibilities:
-1. Act as a highly professional, encouraging, and expert mentor.
-2. Explain concepts with extreme clarity, breaking down complex topics.
-3. Always provide clean, well-commented, and practical Python code examples.
-4. If the user speaks in Roman Urdu/Hindi (e.g., "python sikhao", "mujhe samajh nahi aaya"), you MUST reply in polite, professional Roman Urdu/Hindi mixed with English technical terms.
-5. Format your responses beautifully using Markdown (use bolding, bullet points, and code blocks).
-6. Directly address the user's query while keeping the context of the current lecture in mind.`
-        }
+      const response = await fetch('/api/tutor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          contents,
+          lectureTitle: currentLecture.title,
+          lectureDescription: currentLecture.description
+        })
       });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Failed to generate response');
 
       const modelMsg: Message = {
         id: (Date.now() + 1).toString(),
         role: 'model',
-        text: response.text || 'Sorry, I could not generate a response.'
+        text: data.text || 'Sorry, I could not generate a response.'
       };
       setMessages(prev => [...prev, modelMsg]);
     } catch (error) {
