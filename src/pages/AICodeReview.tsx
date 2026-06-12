@@ -30,10 +30,29 @@ export default function AICodeReview({ addXP }: { addXP: (amount: number) => voi
         body: JSON.stringify({ code })
       });
 
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Failed to generate review');
+      if (!response.ok) {
+        let errorMsg = 'Failed to generate review';
+        try {
+          const data = await response.json();
+          errorMsg = data.error || errorMsg;
+        } catch {}
+        throw new Error(errorMsg);
+      }
 
-      setReview(data.text || 'No review generated.');
+      const reader = response.body?.getReader();
+      if (!reader) throw new Error('Response body is unavailable');
+      
+      const decoder = new TextDecoder();
+      let streamText = '';
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        streamText += decoder.decode(value, { stream: true });
+        setReview(streamText);
+      }
+      
+      if (!streamText) setReview('No review generated.');
       addXP(50); // Earn 50 XP for a code review
     } catch (error) {
       console.error('Error generating review:', error);

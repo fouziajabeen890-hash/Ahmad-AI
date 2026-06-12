@@ -137,16 +137,16 @@ function Layout({ children, user, onLogout }: LayoutProps) {
 
         {/* Dropdown Menu */}
         {menuOpen && (
-          <div className="absolute top-16 left-0 w-72 glass-panel border-r border-b border-white/10 shadow-2xl flex flex-col py-4 z-50 animate-in slide-in-from-left-4 duration-200 rounded-br-2xl">
-            <div className="px-6 pb-4 mb-2 border-b border-white/5">
+          <div className="absolute top-20 left-4 right-4 sm:left-auto sm:right-4 sm:w-80 shadow-2xl rounded-3xl p-6 bg-slate-900/95 backdrop-blur-xl border border-white/20 flex flex-col z-50 animate-in fade-in zoom-in-95 duration-200 max-h-[70vh] overflow-y-auto">
+            <div className="px-2 pb-4 mb-2 border-b border-white/5">
               <p className="text-xs font-bold text-indigo-400 uppercase tracking-wider">Navigation</p>
             </div>
             <Link 
               to="/" 
               onClick={() => setMenuOpen(false)}
               className={cn(
-                "flex items-center gap-3 px-6 py-4 hover:bg-white/5 transition-colors",
-                location.pathname === '/' ? "text-indigo-400 border-l-2 border-indigo-500 bg-indigo-500/10" : "text-slate-300 border-l-2 border-transparent"
+                "flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-xl transition-colors",
+                location.pathname === '/' ? "text-indigo-400 bg-indigo-500/10" : "text-slate-300"
               )}
             >
               <HomeIcon className="w-5 h-5" />

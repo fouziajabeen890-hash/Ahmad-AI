@@ -333,21 +333,49 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
         body: JSON.stringify({ contents })
       });
       
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Failed to generate response');
+      if (!response.ok) {
+        let errorMsg = 'Failed to generate response';
+        try {
+          const data = await response.json();
+          errorMsg = data.error || errorMsg;
+        } catch {}
+        throw new Error(errorMsg);
+      }
 
+      const reader = response.body?.getReader();
+      if (!reader) throw new Error('Response body is unavailable');
+      
+      const decoder = new TextDecoder();
+      let streamText = '';
+      const modelMsgId = (Date.now() + 1).toString();
+      
       const modelMsg: ChatMessage = {
-        id: (Date.now() + 1).toString(),
+        id: modelMsgId,
         role: 'model',
-        text: data.text || 'Sorry, I could not generate a response.'
+        text: ''
       };
-      const updatedMessages = [...messages, userMsg, modelMsg];
-      setMessages(updatedMessages);
-      saveChat(updatedMessages);
+      
+      const intermediateMessages = [...messages, userMsg, modelMsg];
+      setMessages(intermediateMessages);
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        streamText += decoder.decode(value, { stream: true });
+        
+        setMessages(prev => prev.map(msg => 
+          msg.id === modelMsgId ? { ...msg, text: streamText } : msg
+        ));
+      }
+      
+      const finalMsg = { ...modelMsg, text: streamText || 'Sorry, I could not generate a response.' };
+      const finalMessages = [...messages, userMsg, finalMsg];
+      setMessages(finalMessages);
+      saveChat(finalMessages);
       addXP(10); // Earn 10 XP for each AI interaction
 
-      if (isHandsFree && data.text) {
-        toggleSpeech(data.text);
+      if (isHandsFree && streamText) {
+        toggleSpeech(streamText);
       }
     } catch (error) {
       console.error("AI Error:", error);

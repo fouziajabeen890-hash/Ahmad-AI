@@ -65,15 +65,39 @@ export default function AITutor({ currentLecture }: AITutorProps) {
         })
       });
 
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Failed to generate response');
+      if (!response.ok) {
+        let errorMsg = 'Failed to generate response';
+        try {
+          const data = await response.json();
+          errorMsg = data.error || errorMsg;
+        } catch {}
+        throw new Error(errorMsg);
+      }
 
+      const reader = response.body?.getReader();
+      if (!reader) throw new Error('Response body is unavailable');
+      
+      const decoder = new TextDecoder();
+      let streamText = '';
+      const modelMsgId = (Date.now() + 1).toString();
+      
       const modelMsg: Message = {
-        id: (Date.now() + 1).toString(),
+        id: modelMsgId,
         role: 'model',
-        text: data.text || 'Sorry, I could not generate a response.'
+        text: ''
       };
+      
       setMessages(prev => [...prev, modelMsg]);
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        streamText += decoder.decode(value, { stream: true });
+        
+        setMessages(prev => prev.map(msg => 
+          msg.id === modelMsgId ? { ...msg, text: streamText } : msg
+        ));
+      }
     } catch (error) {
       console.error("AI Error:", error);
       setMessages(prev => [...prev, {

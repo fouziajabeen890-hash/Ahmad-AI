@@ -64,10 +64,32 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
         body: JSON.stringify({ code: playgroundCode })
       });
       
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Failed to generate output');
+      if (!response.ok) {
+        let errorMsg = 'Failed to generate output';
+        try {
+          const data = await response.json();
+          errorMsg = data.error || errorMsg;
+        } catch {}
+        throw new Error(errorMsg);
+      }
       
-      setPlaygroundOutput(data.text || 'No output.');
+      const reader = response.body?.getReader();
+      if (!reader) throw new Error('Response body is unavailable');
+      
+      const decoder = new TextDecoder();
+      let streamText = '';
+      
+      setPlaygroundOutput('Executing code...\n');
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        streamText += decoder.decode(value, { stream: true });
+        setPlaygroundOutput(streamText);
+      }
+      
+      if (!streamText) setPlaygroundOutput('No output.');
+      
       addXP(15); // Reward for using playground
     } catch (error) {
       setPlaygroundOutput('Error: Could not connect to the Python engine. Please try again.');

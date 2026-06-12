@@ -1,43 +1,64 @@
 import { GoogleGenAI } from '@google/genai';
 
 export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '10mb',
-    },
-  },
+  runtime: 'edge', // Use Edge Runtime for streaming with no cold starts
 };
 
-export default async function handler(req: any, res: any) {
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+export default async function handler(req: Request) {
+  if (req.method !== 'POST') return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405 });
   
   try {
-    const { code } = req.body;
+    const body = await req.json();
+    const { code } = body;
     if (typeof code !== 'string' || code.length > 50000) {
-      return res.status(400).json({ error: 'Invalid code provided.' });
+      return new Response(JSON.stringify({ error: 'Invalid code provided.' }), { status: 400 });
     }
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return res.status(500).json({ error: 'GEMINI_API_KEY is not set on the server.' });
+      return new Response(JSON.stringify({ error: 'GEMINI_API_KEY is not set on the server.' }), { status: 500 });
     }
     
+    // Explicitly use native fetch to satisfy edge runtime
     const ai = new GoogleGenAI({ 
       apiKey,
-      httpOptions: { headers: { 'User-Agent': 'vercel-serverless' } }
+      httpOptions: { 
+        headers: { 'User-Agent': 'vercel-serverless' },
+        fetch: fetch 
+      }
     });
     
-    const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+    const responseStream = await ai.models.generateContentStream({
+      model: "gemini-2.5-flash",
       contents: `You are a Python interpreter. Execute or explain output of this code as if you were a real Python console. If there are errors, show them. Keep it concise. Code:\n\n${code}`,
       config: {
         systemInstruction: "You are a Python console. Output only what the code would print, or a brief explanation of the result. If it's a code snippet, simulate the output.",
       }
     });
+
+    const stream = new ReadableStream({
+      async start(controller) {
+        try {
+          for await (const chunk of responseStream) {
+            if (chunk.text) {
+              controller.enqueue(new TextEncoder().encode(chunk.text));
+            }
+          }
+          controller.close();
+        } catch (e: any) {
+          controller.error(e);
+        }
+      }
+    });
     
-    res.status(200).json({ text: response.text });
+    return new Response(stream, {
+      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+    });
   } catch (error: any) {
     console.error('Playground API Error:', error);
-    res.status(500).json({ error: error.message || 'Failed to generate playground response' });
+    return new Response(JSON.stringify({ error: error.message || 'Failed to generate playground response' }), { 
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 }

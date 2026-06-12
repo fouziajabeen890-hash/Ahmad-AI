@@ -57,8 +57,8 @@ app.post('/api/chat', async (req, res) => {
         }
       }
     });
-    const response = await ai.models.generateContent({
-      model: 'gemini-3.5-flash',
+    const responseStream = await ai.models.generateContentStream({
+      model: 'gemini-2.5-flash',
       contents: contents,
       config: {
         systemInstruction: `You are "Mr Ahmad AI Ultra", the most advanced, world-class Python Architect and AI assistant in existence. You possess deep, expert-level knowledge of Python internals, advanced design patterns, performance optimization, and cutting-edge libraries.
@@ -70,7 +70,14 @@ CRITICAL RULES:
       }
     });
     
-    res.json({ text: response.text });
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.setHeader('Transfer-Encoding', 'chunked');
+    for await (const chunk of responseStream) {
+      if (chunk.text) {
+        res.write(chunk.text);
+      }
+    }
+    res.end();
   } catch (error: any) {
     console.error('Chat API Error:', error);
     res.status(500).json({ error: error.message || 'Failed to generate chat response' });
@@ -111,12 +118,19 @@ Code to review:
 ${code}
 \`\`\`
 `;
-    const response = await ai.models.generateContent({
-      model: 'gemini-3.5-flash',
+    const responseStream = await ai.models.generateContentStream({
+      model: 'gemini-2.5-flash',
       contents: prompt,
     });
     
-    res.json({ text: response.text });
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.setHeader('Transfer-Encoding', 'chunked');
+    for await (const chunk of responseStream) {
+      if (chunk.text) {
+        res.write(chunk.text);
+      }
+    }
+    res.end();
   } catch (error: any) {
     console.error('Review API Error:', error);
     res.status(500).json({ error: error.message || 'Failed to generate review' });
@@ -144,15 +158,22 @@ app.post('/api/playground', async (req, res) => {
         }
       }
     });
-    const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+    const responseStream = await ai.models.generateContentStream({
+      model: "gemini-2.5-flash",
       contents: `You are a Python interpreter. Execute or explain output of this code as if you were a real Python console. If there are errors, show them. Keep it concise. Code:\n\n${code}`,
       config: {
         systemInstruction: "You are a Python console. Output only what the code would print, or a brief explanation of the result. If it's a code snippet, simulate the output.",
       }
     });
     
-    res.json({ text: response.text });
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.setHeader('Transfer-Encoding', 'chunked');
+    for await (const chunk of responseStream) {
+      if (chunk.text) {
+        res.write(chunk.text);
+      }
+    }
+    res.end();
   } catch (error: any) {
     console.error('Playground API Error:', error);
     res.status(500).json({ error: error.message || 'Failed to generate playground response' });
@@ -186,15 +207,22 @@ app.post('/api/tutor', async (req, res) => {
         }
       }
     });
-    const response = await ai.models.generateContent({
-      model: 'gemini-3.5-flash',
+    const responseStream = await ai.models.generateContentStream({
+      model: 'gemini-2.5-flash',
       contents: contents,
       config: {
         systemInstruction: `You are an elite, professional Python programming tutor. The student is currently watching the lecture: "${lectureTitle}". \n\nLecture Context: ${lectureDescription}\n\nYour goal is to guide the student, explain concepts clearly, and answer questions. Use code examples when helpful. You can respond in English or Roman Urdu/Hindi. Do not give away the final answer to an exercise immediately; guide them to it. Keep responses under 50 lines. Focus ONLY on Python.`,
       }
     });
     
-    res.json({ text: response.text });
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.setHeader('Transfer-Encoding', 'chunked');
+    for await (const chunk of responseStream) {
+      if (chunk.text) {
+        res.write(chunk.text);
+      }
+    }
+    res.end();
   } catch (error: any) {
     console.error('Tutor API Error:', error);
     res.status(500).json({ error: error.message || 'Failed to generate tutor response' });
