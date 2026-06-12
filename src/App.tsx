@@ -283,8 +283,13 @@ export default function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check for dummy user first
-    const savedUser = localStorage.getItem('ahmad_shahid_user');
+    let savedUser = null;
+    try {
+      savedUser = localStorage.getItem('ahmad_shahid_user');
+    } catch (e) {
+      console.warn("localStorage access denied", e);
+    }
+    
     if (savedUser) {
       try {
         const parsedUser = JSON.parse(savedUser);
@@ -297,7 +302,7 @@ export default function App() {
         return;
       } catch (e) {
         console.error("Error parsing user from localStorage", e);
-        localStorage.removeItem('ahmad_shahid_user');
+        try { localStorage.removeItem('ahmad_shahid_user'); } catch (e) {}
       }
     }
 
@@ -375,7 +380,11 @@ export default function App() {
   };
 
   const handleLogout = async () => {
-    localStorage.removeItem('ahmad_shahid_user');
+    try {
+      localStorage.removeItem('ahmad_shahid_user');
+    } catch (e) {
+      console.warn("Failed to remove user from cache:", e);
+    }
     setUser(null);
     try {
       await signOut(auth);
