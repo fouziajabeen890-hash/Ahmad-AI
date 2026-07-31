@@ -1,6 +1,6 @@
 import { useState, useEffect, Component, ErrorInfo, ReactNode } from 'react';
 import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Trophy, Menu, X, Home as HomeIcon, BookOpen, LogOut, Loader2, MessageSquare, PlayCircle, Bot, BrainCircuit, Sparkles, AlertTriangle, RefreshCw, Terminal as TerminalIcon } from 'lucide-react';
+import { Trophy, Menu, X, Home as HomeIcon, BookOpen, LogOut, Loader2, MessageSquare, PlayCircle, Bot, BrainCircuit, Sparkles, AlertTriangle, RefreshCw, Terminal as TerminalIcon, Instagram, Linkedin } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Home from './pages/Home';
 import Course from './pages/Course';
@@ -237,6 +237,38 @@ function Layout({ children, user, onLogout }: LayoutProps) {
                 <span className="text-xs text-slate-500">Run code in browser</span>
               </div>
             </Link>
+
+            <a 
+              href="https://www.instagram.com/its_ahmad_435/" 
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMenuOpen(false)}
+              className={cn(
+                "flex items-center gap-3 px-6 py-4 hover:bg-white/5 transition-colors text-slate-300 border-l-2 border-transparent"
+              )}
+            >
+              <Instagram className="w-5 h-5" />
+              <div className="flex flex-col">
+                <span className="font-medium">Follow on Instagram</span>
+                <span className="text-xs text-slate-500">its_ahmad_435</span>
+              </div>
+            </a>
+
+            <a 
+              href="https://www.linkedin.com/in/ahmad-shahid-3599a82b4/" 
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMenuOpen(false)}
+              className={cn(
+                "flex items-center gap-3 px-6 py-4 hover:bg-white/5 transition-colors text-slate-300 border-l-2 border-transparent"
+              )}
+            >
+              <Linkedin className="w-5 h-5" />
+              <div className="flex flex-col">
+                <span className="font-medium">Connect on LinkedIn</span>
+                <span className="text-xs text-slate-500">Ahmad Shahid</span>
+              </div>
+            </a>
 
             <div className="mt-auto pt-4 border-t border-white/5 sm:hidden">
               <button 
