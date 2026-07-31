@@ -1,9 +1,8 @@
-import { Instagram, Phone, Mail } from 'lucide-react';
+import { Instagram, Phone } from 'lucide-react';
 
 export default function ContactUs() {
   return (
     <div className="p-6 max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold text-white mb-8">Contact Us</h1>
       <div className="glass-panel p-6 rounded-2xl space-y-6">
         <a 
           href="https://www.instagram.com/its_ahmad_435/" 
