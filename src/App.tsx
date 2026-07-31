@@ -1,6 +1,6 @@
 import { useState, useEffect, Component, ErrorInfo, ReactNode } from 'react';
 import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Trophy, Menu, X, Home as HomeIcon, BookOpen, LogOut, Loader2, MessageSquare, PlayCircle, Bot, BrainCircuit, Sparkles, AlertTriangle, RefreshCw, Terminal as TerminalIcon, Instagram, Linkedin } from 'lucide-react';
+import { Trophy, Menu, X, Home as HomeIcon, BookOpen, LogOut, Loader2, MessageSquare, PlayCircle, Bot, BrainCircuit, Sparkles, AlertTriangle, RefreshCw, Terminal as TerminalIcon, Instagram, Phone, Contact } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Home from './pages/Home';
 import Course from './pages/Course';
@@ -11,6 +11,7 @@ import PythonChatbot from './pages/PythonChatbot';
 import FoundationOfAI from './pages/FoundationOfAI';
 import AICodeReview from './pages/AICodeReview';
 import PythonTerminal from './pages/PythonTerminal';
+import ContactUs from './pages/ContactUs';
 import { cn } from './lib/utils';
 import { auth } from './firebase';
 import { onAuthStateChanged, signOut, User } from 'firebase/auth';
@@ -255,7 +256,7 @@ function Layout({ children, user, onLogout }: LayoutProps) {
             </a>
 
             <a 
-              href="https://www.linkedin.com/in/ahmad-shahid-3599a82b4/" 
+              href="https://wa.me/923004985806" 
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMenuOpen(false)}
@@ -263,12 +264,27 @@ function Layout({ children, user, onLogout }: LayoutProps) {
                 "flex items-center gap-3 px-6 py-4 hover:bg-white/5 transition-colors text-slate-300 border-l-2 border-transparent"
               )}
             >
-              <Linkedin className="w-5 h-5" />
+              <Phone className="w-5 h-5" />
               <div className="flex flex-col">
-                <span className="font-medium">Connect on LinkedIn</span>
-                <span className="text-xs text-slate-500">Ahmad Shahid</span>
+                <span className="font-medium">Contact on WhatsApp</span>
+                <span className="text-xs text-slate-500">03004985806</span>
               </div>
             </a>
+
+            <Link 
+              to="/contact"
+              onClick={() => setMenuOpen(false)}
+              className={cn(
+                "flex items-center gap-3 px-6 py-4 hover:bg-white/5 transition-colors",
+                location.pathname === '/contact' ? "text-indigo-400 border-l-2 border-indigo-500 bg-indigo-500/10" : "text-slate-300 border-l-2 border-transparent"
+              )}
+            >
+              <Contact className="w-5 h-5" />
+              <div className="flex flex-col">
+                <span className="font-medium">Contact Us</span>
+                <span className="text-xs text-slate-500">Get in touch</span>
+              </div>
+            </Link>
 
             <div className="mt-auto pt-4 border-t border-white/5 sm:hidden">
               <button 
@@ -305,6 +321,7 @@ function AnimatedRoutes({ user, addXP }: { user: any, addXP: (amount: number) =>
         <Route path="/code-review" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><AICodeReview addXP={addXP} /></motion.div>} />
         <Route path="/terminal" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><PythonTerminal addXP={addXP} /></motion.div>} />
         <Route path="/foundation" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><FoundationOfAI /></motion.div>} />
+        <Route path="/contact" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><ContactUs /></motion.div>} />
       </Routes>
     </AnimatePresence>
   );
