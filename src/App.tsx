@@ -1,6 +1,6 @@
 import { useState, useEffect, Component, ErrorInfo, ReactNode } from 'react';
 import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Trophy, Menu, X, Home as HomeIcon, BookOpen, LogOut, Loader2, MessageSquare, PlayCircle, Bot, BrainCircuit, Sparkles, AlertTriangle, RefreshCw, Terminal as TerminalIcon } from 'lucide-react';
+import { Trophy, Menu, X, Home as HomeIcon, BookOpen, LogOut, Loader2, MessageSquare, PlayCircle, Bot, BrainCircuit, Sparkles, AlertTriangle, RefreshCw, Terminal as TerminalIcon, Library } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Home from './pages/Home';
 import Course from './pages/Course';
@@ -11,7 +11,7 @@ import PythonChatbot from './pages/PythonChatbot';
 import FoundationOfAI from './pages/FoundationOfAI';
 import AICodeReview from './pages/AICodeReview';
 import PythonTerminal from './pages/PythonTerminal';
-import PythonChallenges from './pages/PythonChallenges';
+import CodeVault from './pages/CodeVault';
 import { cn } from './lib/utils';
 import { auth } from './firebase';
 import { onAuthStateChanged, signOut, User } from 'firebase/auth';
@@ -240,17 +240,17 @@ function Layout({ children, user, onLogout }: LayoutProps) {
             </Link>
 
             <Link 
-              to="/challenges"
+              to="/vault"
               onClick={() => setMenuOpen(false)}
               className={cn(
                 "flex items-center gap-3 px-6 py-4 hover:bg-white/5 transition-colors",
-                location.pathname === '/challenges' ? "text-yellow-400 border-l-2 border-yellow-500 bg-yellow-500/10" : "text-slate-300 border-l-2 border-transparent"
+                location.pathname === '/vault' ? "text-cyan-400 border-l-2 border-cyan-500 bg-cyan-500/10" : "text-slate-300 border-l-2 border-transparent"
               )}
             >
-              <Trophy className="w-5 h-5" />
+              <Library className="w-5 h-5" />
               <div className="flex flex-col">
-                <span className="font-medium">Daily Challenges</span>
-                <span className="text-xs text-slate-500">Code & earn XP</span>
+                <span className="font-medium">Code Vault</span>
+                <span className="text-xs text-slate-500">Snippets & Templates</span>
               </div>
             </Link>
             <div className="mt-auto pt-4 border-t border-white/5 sm:hidden">
@@ -287,7 +287,7 @@ function AnimatedRoutes({ user, addXP }: { user: any, addXP: (amount: number) =>
         <Route path="/chatbot" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><PythonChatbot addXP={addXP} /></motion.div>} />
         <Route path="/code-review" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><AICodeReview addXP={addXP} /></motion.div>} />
         <Route path="/terminal" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><PythonTerminal addXP={addXP} /></motion.div>} />
-        <Route path="/challenges" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><PythonChallenges user={user} addXP={addXP} /></motion.div>} />
+        <Route path="/vault" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><CodeVault /></motion.div>} />
         <Route path="/foundation" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><FoundationOfAI /></motion.div>} />
       </Routes>
     </AnimatePresence>
