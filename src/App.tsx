@@ -11,7 +11,7 @@ import PythonChatbot from './pages/PythonChatbot';
 import FoundationOfAI from './pages/FoundationOfAI';
 import AICodeReview from './pages/AICodeReview';
 import PythonTerminal from './pages/PythonTerminal';
-import CodeVault from './pages/CodeVault';
+import AIArchitect from './pages/AIArchitect';
 import { cn } from './lib/utils';
 import { auth } from './firebase';
 import { onAuthStateChanged, signOut, User } from 'firebase/auth';
@@ -240,17 +240,17 @@ function Layout({ children, user, onLogout }: LayoutProps) {
             </Link>
 
             <Link 
-              to="/vault"
+              to="/architect"
               onClick={() => setMenuOpen(false)}
               className={cn(
                 "flex items-center gap-3 px-6 py-4 hover:bg-white/5 transition-colors",
-                location.pathname === '/vault' ? "text-cyan-400 border-l-2 border-cyan-500 bg-cyan-500/10" : "text-slate-300 border-l-2 border-transparent"
+                location.pathname === '/architect' ? "text-cyan-400 border-l-2 border-cyan-500 bg-cyan-500/10" : "text-slate-300 border-l-2 border-transparent"
               )}
             >
-              <Library className="w-5 h-5" />
+              <TerminalIcon className="w-5 h-5" />
               <div className="flex flex-col">
-                <span className="font-medium">Code Vault</span>
-                <span className="text-xs text-slate-500">Snippets & Templates</span>
+                <span className="font-medium">AI Architect</span>
+                <span className="text-xs text-slate-500">Generate System Blueprints</span>
               </div>
             </Link>
             <div className="mt-auto pt-4 border-t border-white/5 sm:hidden">
@@ -287,7 +287,7 @@ function AnimatedRoutes({ user, addXP }: { user: any, addXP: (amount: number) =>
         <Route path="/chatbot" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><PythonChatbot addXP={addXP} /></motion.div>} />
         <Route path="/code-review" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><AICodeReview addXP={addXP} /></motion.div>} />
         <Route path="/terminal" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><PythonTerminal addXP={addXP} /></motion.div>} />
-        <Route path="/vault" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><CodeVault /></motion.div>} />
+        <Route path="/architect" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><AIArchitect /></motion.div>} />
         <Route path="/foundation" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><FoundationOfAI /></motion.div>} />
       </Routes>
     </AnimatePresence>

@@ -229,6 +229,57 @@ app.post('/api/tutor', async (req, res) => {
   }
 });
 
+app.post('/api/architect', async (req, res) => {
+  try {
+    const { prompt } = req.body;
+
+    if (typeof prompt !== 'string' || !prompt.trim() || prompt.length > 5000) {
+      return res.status(400).json({ error: 'Invalid prompt provided. Must be a non-empty string under 5000 characters.' });
+    }
+
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return res.status(500).json({ error: 'GEMINI_API_KEY is not set on the server.' });
+    }
+    
+    const ai = new GoogleGenAI({ 
+      apiKey,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build',
+        }
+      }
+    });
+
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: `Architect a complete Python project based on this prompt: "${prompt}". You are an elite AI System Architect and Cybersecurity Expert.`,
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: "object",
+          properties: {
+            projectName: { type: "string" },
+            overview: { type: "string", description: "High-level summary of the system" },
+            fileTree: { type: "array", items: { type: "string" }, description: "List of files/directories in standard tree format e.g. src/, src/main.py, etc" },
+            dependencies: { type: "array", items: { type: "string" }, description: "List of pip packages required" },
+            coreLogic: { type: "string", description: "The core, most critical Python code snippet (at least 20 lines) demonstrating the primary functionality." },
+            securityAnalysis: { type: "array", items: { type: "string" }, description: "Specific cybersecurity considerations, vulnerabilities to watch for, and hardening tips." }
+          },
+          required: ["projectName", "overview", "fileTree", "dependencies", "coreLogic", "securityAnalysis"]
+        },
+        systemInstruction: "You are an elite Python System Architect and Cybersecurity Researcher. Output JSON only matching the schema.",
+      }
+    });
+    
+    const data = response.text ? JSON.parse(response.text) : null;
+    res.json(data);
+  } catch (error: any) {
+    console.error('Architect API Error:', error);
+    res.status(500).json({ error: error.message || 'Failed to generate architecture' });
+  }
+});
+
 async function startServer() {
   // Vite middleware for development
   if (process.env.NODE_ENV !== 'production') {
