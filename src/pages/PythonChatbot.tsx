@@ -395,20 +395,20 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
   return (
     <div className="flex-1 flex flex-col h-full bg-ai-core relative overflow-hidden">
       {/* Background Glows */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px] pointer-events-none"></div>
 
       {/* Header */}
       <header className="h-16 border-b border-white/5 flex items-center justify-between px-6 bg-black/20 backdrop-blur-xl shrink-0 z-10">
         <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-600/20 border border-indigo-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(79,70,229,0.2)] relative group overflow-hidden">
-            <div className="absolute inset-0 bg-indigo-500/20 rounded-xl blur-md group-hover:blur-lg transition-all"></div>
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(79,70,229,0.2)] relative group overflow-hidden">
+            <div className="absolute inset-0 bg-cyan-500/20 rounded-xl blur-md group-hover:blur-lg transition-all"></div>
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-50"></div>
-            <Cpu className="w-5 h-5 text-indigo-400 relative z-10 group-hover:scale-110 transition-transform" />
+            <Cpu className="w-5 h-5 text-cyan-400 relative z-10 group-hover:scale-110 transition-transform" />
           </div>
           <div>
             <h2 className="font-bold text-slate-100 tracking-wide flex items-center gap-2">
-              Mr Ahmad AI <span className="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-[10px] uppercase tracking-wider border border-indigo-500/30 font-bold shadow-[0_0_10px_rgba(79,70,229,0.3)] glow-border">Ultra</span>
+              Mr Ahmad AI <span className="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 text-[10px] uppercase tracking-wider border border-cyan-500/30 font-bold shadow-[0_0_10px_rgba(79,70,229,0.3)] glow-border">Ultra</span>
             </h2>
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1.5">
@@ -416,21 +416,21 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
                 <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Neural Core Online</span>
               </div>
               <div className="hidden sm:flex items-center gap-1.5 border-l border-white/10 pl-3">
-                <Activity className="w-3 h-3 text-indigo-400" />
-                <span className="text-[10px] text-indigo-300/70 font-mono">Latency: 12ms</span>
+                <Activity className="w-3 h-3 text-cyan-400" />
+                <span className="text-[10px] text-cyan-300/70 font-mono">Latency: 12ms</span>
               </div>
               <div className="hidden sm:flex items-center gap-1.5 border-l border-white/10 pl-3">
-                <Zap className="w-3 h-3 text-purple-400" />
-                <span className="text-[10px] text-purple-300/70 font-mono">Power: Optimal</span>
+                <Zap className="w-3 h-3 text-blue-400" />
+                <span className="text-[10px] text-blue-300/70 font-mono">Power: Optimal</span>
               </div>
             </div>
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <button onClick={() => setShowHistory(true)} className="p-2 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/20 text-indigo-300 transition-colors shadow-[0_0_10px_rgba(79,70,229,0.2)]" title="Chat History">
+          <button onClick={() => setShowHistory(true)} className="p-2 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20 text-cyan-300 transition-colors shadow-[0_0_10px_rgba(79,70,229,0.2)]" title="Chat History">
             <History className="w-5 h-5" />
           </button>
-          <button onClick={() => setShowFounder(true)} className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/20 text-purple-300 transition-colors text-sm font-medium shadow-[0_0_10px_rgba(168,85,247,0.2)]">
+          <button onClick={() => setShowFounder(true)} className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 text-blue-300 transition-colors text-sm font-medium shadow-[0_0_10px_rgba(168,85,247,0.2)]">
             <Info className="w-4 h-4" />
             <span className="hidden sm:block">About Founder</span>
           </button>
@@ -471,24 +471,24 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
                 <div className={cn(
                   "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-lg relative overflow-hidden",
                   msg.role === 'user' 
-                    ? "bg-gradient-to-br from-indigo-500 to-purple-600" 
-                    : "bg-gradient-to-br from-indigo-900/60 to-purple-900/60 border border-indigo-500/40 shadow-[0_0_20px_rgba(79,70,229,0.2)] glow-border"
+                    ? "bg-gradient-to-br from-cyan-500 to-blue-600" 
+                    : "bg-gradient-to-br from-indigo-900/60 to-purple-900/60 border border-cyan-500/40 shadow-[0_0_20px_rgba(79,70,229,0.2)] glow-border"
                 )}>
                   {msg.role === 'model' && <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30"></div>}
-                  {msg.role === 'user' ? <User className="w-5 h-5 text-white relative z-10" /> : <Sparkles className="w-5 h-5 text-indigo-300 relative z-10" />}
+                  {msg.role === 'user' ? <User className="w-5 h-5 text-white relative z-10" /> : <Sparkles className="w-5 h-5 text-cyan-300 relative z-10" />}
                 </div>
                 <div className={cn(
                   "max-w-[85%] rounded-2xl px-6 py-5 text-sm shadow-2xl relative group",
                   msg.role === 'user' 
-                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-tr-none border border-indigo-400/20" 
+                    ? "bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-tr-none border border-cyan-400/20" 
                     : "glass-bubble text-slate-200 rounded-tl-none"
                 )}>
                   {msg.role === 'model' && (
                     <>
-                      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none"></div>
+                      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none"></div>
                       <button 
                         onClick={() => toggleSpeech(msg.text)}
-                        className="absolute -right-10 top-2 p-2 bg-white/5 hover:bg-white/10 rounded-full text-slate-400 hover:text-indigo-300 transition-colors opacity-0 group-hover:opacity-100"
+                        className="absolute -right-10 top-2 p-2 bg-white/5 hover:bg-white/10 rounded-full text-slate-400 hover:text-cyan-300 transition-colors opacity-0 group-hover:opacity-100"
                         title={isSpeaking ? "Stop Speaking" : "Read Aloud"}
                       >
                         {isSpeaking ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
@@ -501,7 +501,7 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
                       <img src={msg.file.data} alt="Uploaded" className="max-w-full rounded-lg border border-white/20 shadow-sm" />
                     ) : (
                       <div className="flex items-center gap-3 bg-black/20 p-3 rounded-lg border border-white/10">
-                        <FileText className="w-6 h-6 text-indigo-300" />
+                        <FileText className="w-6 h-6 text-cyan-300" />
                         <span className="text-sm font-medium text-slate-200 truncate">{msg.file.name}</span>
                       </div>
                     )}
@@ -511,7 +511,7 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
                   msg.role === 'user' ? (
                     <p className="leading-relaxed">{msg.text}</p>
                   ) : (
-                    <div className="prose prose-invert prose-sm max-w-none prose-pre:bg-[#0d0d12] prose-pre:border prose-pre:border-white/10 prose-code:text-indigo-300 prose-pre:p-0 prose-pre:overflow-hidden">
+                    <div className="prose prose-invert prose-sm max-w-none prose-pre:bg-[#0d0d12] prose-pre:border prose-pre:border-white/10 prose-code:text-cyan-300 prose-pre:p-0 prose-pre:overflow-hidden">
                       <ReactMarkdown 
                         remarkPlugins={[remarkGfm]}
                         components={{
@@ -532,7 +532,7 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
                                 </div>
                               </div>
                             ) : (
-                              <code className={cn("bg-white/10 px-1.5 py-0.5 rounded-md text-indigo-300 font-mono text-[0.9em]", className)} {...props}>
+                              <code className={cn("bg-white/10 px-1.5 py-0.5 rounded-md text-cyan-300 font-mono text-[0.9em]", className)} {...props}>
                                 {children}
                               </code>
                             )
@@ -554,18 +554,18 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
               animate={{ opacity: 1, y: 0 }}
               className="flex gap-4"
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-900/60 to-purple-900/60 border border-indigo-500/40 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(79,70,229,0.2)] relative overflow-hidden glow-border">
-                <div className="absolute inset-0 bg-indigo-500/20 rounded-xl blur-sm animate-pulse"></div>
-                <Sparkles className="w-5 h-5 text-indigo-300 relative z-10 animate-spin-slow" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-900/60 to-purple-900/60 border border-cyan-500/40 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(79,70,229,0.2)] relative overflow-hidden glow-border">
+                <div className="absolute inset-0 bg-cyan-500/20 rounded-xl blur-sm animate-pulse"></div>
+                <Sparkles className="w-5 h-5 text-cyan-300 relative z-10 animate-spin-slow" />
               </div>
               <div className="glass-bubble rounded-2xl rounded-tl-none px-6 py-5 flex items-center gap-4 shadow-2xl relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-indigo-500/10 animate-gradient-x"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-cyan-500/10 animate-gradient-x"></div>
                 <div className="flex gap-1.5 relative z-10">
-                  <div className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                  <div className="w-2 h-2 rounded-full bg-purple-400 animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                  <div className="w-2 h-2 rounded-full bg-cyan-400 animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                  <div className="w-2 h-2 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: '150ms' }}></div>
                   <div className="w-2 h-2 rounded-full bg-pink-400 animate-bounce" style={{ animationDelay: '300ms' }}></div>
                 </div>
-                <span className="text-sm text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-300 font-medium tracking-wide relative z-10">Neural pathways connecting...</span>
+                <span className="text-sm text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300 font-medium tracking-wide relative z-10">Neural pathways connecting...</span>
               </div>
             </motion.div>
           )}
@@ -578,7 +578,7 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
         <div className="max-w-4xl mx-auto relative">
           {/* Voice Wave Visualization */}
           {(isRecording || isSpeaking) && (
-            <div className="absolute -top-12 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 backdrop-blur-md z-30">
+            <div className="absolute -top-12 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 backdrop-blur-md z-30">
               <div className="voice-wave">
                 <div className="voice-bar"></div>
                 <div className="voice-bar"></div>
@@ -586,7 +586,7 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
                 <div className="voice-bar"></div>
                 <div className="voice-bar"></div>
               </div>
-              <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest">
+              <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-widest">
                 {isRecording ? "Listening..." : "AI Speaking..."}
               </span>
             </div>
@@ -614,12 +614,12 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
 
           {/* File Preview */}
           {selectedFile && (
-            <div className="absolute bottom-full mb-4 left-0 glass-bubble p-2 rounded-xl border border-indigo-500/30 shadow-[0_0_20px_rgba(79,70,229,0.15)] flex items-center gap-3 animate-in fade-in slide-in-from-bottom-2">
+            <div className="absolute bottom-full mb-4 left-0 glass-bubble p-2 rounded-xl border border-cyan-500/30 shadow-[0_0_20px_rgba(79,70,229,0.15)] flex items-center gap-3 animate-in fade-in slide-in-from-bottom-2">
               {selectedFile.isImage ? (
                 <img src={selectedFile.data} alt="Preview" className="h-16 w-auto rounded-lg border border-white/10 object-cover" />
               ) : (
-                <div className="h-16 w-16 bg-indigo-500/20 rounded-lg border border-indigo-500/30 flex items-center justify-center shrink-0">
-                  <FileText className="w-8 h-8 text-indigo-400" />
+                <div className="h-16 w-16 bg-cyan-500/20 rounded-lg border border-cyan-500/30 flex items-center justify-center shrink-0">
+                  <FileText className="w-8 h-8 text-cyan-400" />
                 </div>
               )}
               <div className="flex flex-col pr-8">
@@ -646,7 +646,7 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
             <div className="absolute left-2 flex items-center gap-1 z-10">
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="text-slate-400 hover:text-indigo-400 p-2 transition-colors"
+                className="text-slate-400 hover:text-cyan-400 p-2 transition-colors"
                 title="Upload File or Image"
               >
                 <Paperclip className="w-5 h-5" />
@@ -655,7 +655,7 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
                 onClick={toggleRecording}
                 className={cn(
                   "p-2 transition-colors rounded-full",
-                  isRecording ? "text-red-400 bg-red-500/20 animate-pulse" : "text-slate-400 hover:text-indigo-400"
+                  isRecording ? "text-red-400 bg-red-500/20 animate-pulse" : "text-slate-400 hover:text-cyan-400"
                 )}
                 title={isRecording ? "Stop Recording" : "Voice Input"}
               >
@@ -669,14 +669,14 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleSend()}
               placeholder={isRecording ? "Listening to voice input..." : "Initialize query or upload data..."}
-              className="w-full bg-black/40 border border-indigo-500/30 rounded-2xl pl-24 pr-16 py-5 text-sm text-white focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 transition-all placeholder:text-slate-500 shadow-[0_0_30px_rgba(0,0,0,0.5)] backdrop-blur-xl glow-border"
+              className="w-full bg-black/40 border border-cyan-500/30 rounded-2xl pl-24 pr-16 py-5 text-sm text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all placeholder:text-slate-500 shadow-[0_0_30px_rgba(0,0,0,0.5)] backdrop-blur-xl glow-border"
             />
             
             <button
               id="send-btn"
               onClick={handleSend}
               disabled={isLoading || (!input.trim() && !selectedFile)}
-              className="absolute right-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 disabled:opacity-50 disabled:from-indigo-600 disabled:to-purple-600 text-white rounded-xl w-12 h-12 flex items-center justify-center transition-all shadow-[0_0_20px_rgba(79,70,229,0.4)] group overflow-hidden"
+              className="absolute right-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 disabled:opacity-50 disabled:from-cyan-600 disabled:to-blue-600 text-white rounded-xl w-12 h-12 flex items-center justify-center transition-all shadow-[0_0_20px_rgba(79,70,229,0.4)] group overflow-hidden"
             >
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
               <Send className="w-5 h-5 ml-0.5 relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
@@ -685,15 +685,15 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
         </div>
         <div className="flex flex-col items-center justify-center gap-2 mt-4">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-3 h-3 text-indigo-500/50" />
+            <Sparkles className="w-3 h-3 text-cyan-500/50" />
             <p className="text-[10px] text-center text-slate-500 font-medium tracking-widest uppercase">Mr Ahmad AI Ultra • Max 78 Lines • Python Only</p>
-            <Sparkles className="w-3 h-3 text-indigo-500/50" />
+            <Sparkles className="w-3 h-3 text-cyan-500/50" />
           </div>
           <p className="text-xs text-slate-400 text-center">
-            Engineered with <span className="text-red-500">♥</span> by <button onClick={() => setShowFounder(true)} className="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors">Mr Ahmad</button>
+            Engineered with <span className="text-red-500">♥</span> by <button onClick={() => setShowFounder(true)} className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors">Mr Ahmad</button>
           </p>
           <Link to="/foundation" className="mt-2 flex flex-col items-center gap-1 hover:scale-105 transition-transform group">
-            <h3 className="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 group-hover:from-indigo-300 group-hover:to-purple-300 transition-colors">Foundation of AI</h3>
+            <h3 className="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 group-hover:from-cyan-300 group-hover:to-blue-300 transition-colors">Foundation of AI</h3>
           </Link>
         </div>
       </div>
@@ -701,8 +701,8 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
       {/* Founder Modal */}
       {showFounder && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="glass-bubble w-full max-w-lg max-h-[90vh] overflow-y-auto custom-scrollbar rounded-3xl shadow-[0_0_50px_rgba(79,70,229,0.3)] border border-indigo-500/30 animate-in zoom-in-95 duration-300">
-            <div className="relative h-32 bg-gradient-to-r from-indigo-600 to-purple-600">
+          <div className="glass-bubble w-full max-w-lg max-h-[90vh] overflow-y-auto custom-scrollbar rounded-3xl shadow-[0_0_50px_rgba(79,70,229,0.3)] border border-cyan-500/30 animate-in zoom-in-95 duration-300">
+            <div className="relative h-32 bg-gradient-to-r from-cyan-600 to-blue-600">
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20"></div>
               <button onClick={() => setShowFounder(false)} className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 rounded-full text-white transition-colors backdrop-blur-md">
                 <X className="w-5 h-5" />
@@ -710,12 +710,12 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
             </div>
             <div className="px-8 pb-8 relative">
               <div className="w-24 h-24 rounded-2xl bg-[#030305] border-4 border-[#15151a] shadow-xl absolute -top-12 flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20"></div>
-                <Terminal className="w-10 h-10 text-indigo-400 relative z-10" />
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-blue-500/20"></div>
+                <Terminal className="w-10 h-10 text-cyan-400 relative z-10" />
               </div>
               <div className="mt-14">
                 <h3 className="text-2xl font-bold text-white tracking-tight">Mr Ahmad</h3>
-                <p className="text-indigo-400 font-medium text-sm mt-1 uppercase tracking-wider">Visionary AI Architect & Founder</p>
+                <p className="text-cyan-400 font-medium text-sm mt-1 uppercase tracking-wider">Visionary AI Architect & Founder</p>
                 
                 <div className="mt-6 space-y-4 text-slate-300 text-sm leading-relaxed">
                   <p>
@@ -725,8 +725,8 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
                     With extensive experience in scalable architectures, machine learning, and full-stack development, Mr Ahmad engineered <strong>Mr Ahmad AI Ultra</strong> to revolutionize how developers interact with code. His vision is to bridge the gap between complex programming concepts and intuitive AI assistance.
                   </p>
                   <div className="pt-4 mt-4 border-t border-white/10 flex flex-wrap gap-2">
-                    <span className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs">Python Expert</span>
-                    <span className="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs">AI Architecture</span>
+                    <span className="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 text-xs">Python Expert</span>
+                    <span className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs">AI Architecture</span>
                     <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs">System Design</span>
                     <span className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs">Innovation</span>
                   </div>
@@ -740,11 +740,11 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
       {/* History Modal */}
       {showHistory && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="glass-bubble w-full max-w-2xl max-h-[90vh] flex flex-col rounded-3xl shadow-[0_0_50px_rgba(79,70,229,0.3)] border border-indigo-500/30 animate-in zoom-in-95 duration-300">
+          <div className="glass-bubble w-full max-w-2xl max-h-[90vh] flex flex-col rounded-3xl shadow-[0_0_50px_rgba(79,70,229,0.3)] border border-cyan-500/30 animate-in zoom-in-95 duration-300">
             <div className="p-6 border-b border-white/10 flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center">
-                  <History className="w-5 h-5 text-indigo-400" />
+                <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center">
+                  <History className="w-5 h-5 text-cyan-400" />
                 </div>
                 <h2 className="text-xl font-bold text-white">Chat History</h2>
               </div>
@@ -765,10 +765,10 @@ export default function PythonChatbot({ addXP }: { addXP: (amount: number) => vo
                     <div 
                       key={chat.id}
                       onClick={() => loadChat(chat)}
-                      className="group p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-indigo-500/30 transition-all cursor-pointer flex items-center justify-between"
+                      className="group p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-cyan-500/30 transition-all cursor-pointer flex items-center justify-between"
                     >
                       <div className="flex-1 min-w-0 pr-4">
-                        <h4 className="text-slate-200 font-medium truncate group-hover:text-indigo-300 transition-colors">{chat.title}</h4>
+                        <h4 className="text-slate-200 font-medium truncate group-hover:text-cyan-300 transition-colors">{chat.title}</h4>
                         <p className="text-xs text-slate-500 mt-1">
                           {chat.updatedAt?.toDate ? chat.updatedAt.toDate().toLocaleString() : 'Recently'}
                         </p>

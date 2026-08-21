@@ -57,8 +57,8 @@ export default function PythonTerminal({ addXP }: { addXP: (amount: number) => v
     <div className="flex-1 overflow-y-auto bg-transparent text-white p-6 custom-scrollbar flex flex-col">
       <div className="max-w-6xl mx-auto w-full flex-1 flex flex-col mt-4">
         <div className="flex items-center gap-3 mb-8 shrink-0">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center border border-indigo-500/30 shadow-[0_0_15px_rgba(79,70,229,0.3)]">
-            <TerminalIcon className="w-6 h-6 text-indigo-400" />
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center border border-cyan-500/30 shadow-[0_0_15px_rgba(79,70,229,0.3)]">
+            <TerminalIcon className="w-6 h-6 text-cyan-400" />
           </div>
           <div>
             <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300">Live Python Terminal</h1>
@@ -71,7 +71,7 @@ export default function PythonTerminal({ addXP }: { addXP: (amount: number) => v
           <div className="glass-panel rounded-3xl border border-white/10 overflow-hidden flex flex-col">
             <div className="bg-black/40 px-4 py-3 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <TerminalIcon className="w-4 h-4 text-indigo-400" />
+                <TerminalIcon className="w-4 h-4 text-cyan-400" />
                 <span className="text-sm font-medium text-slate-300">main.py</span>
               </div>
               <button

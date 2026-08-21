@@ -66,8 +66,8 @@ export default function AICodeReview({ addXP }: { addXP: (amount: number) => voi
     <div className="flex-1 overflow-y-auto bg-transparent text-white p-6 custom-scrollbar">
       <div className="max-w-6xl mx-auto mt-4">
         <div className="flex items-center gap-3 mb-8">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center border border-indigo-500/30 shadow-[0_0_15px_rgba(79,70,229,0.3)]">
-            <Sparkles className="w-6 h-6 text-indigo-400" />
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center border border-cyan-500/30 shadow-[0_0_15px_rgba(79,70,229,0.3)]">
+            <Sparkles className="w-6 h-6 text-cyan-400" />
           </div>
           <div>
             <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300">AI Code Reviewer</h1>
@@ -79,7 +79,7 @@ export default function AICodeReview({ addXP }: { addXP: (amount: number) => voi
           {/* Input Section */}
           <div className="glass-panel rounded-3xl border border-white/10 overflow-hidden flex flex-col h-[70vh]">
             <div className="bg-black/40 px-4 py-3 border-b border-white/10 flex items-center gap-2">
-              <Code2 className="w-4 h-4 text-indigo-400" />
+              <Code2 className="w-4 h-4 text-cyan-400" />
               <span className="text-sm font-medium text-slate-300">Your Python Code</span>
             </div>
             <textarea
@@ -93,7 +93,7 @@ export default function AICodeReview({ addXP }: { addXP: (amount: number) => voi
               <button
                 onClick={handleReview}
                 disabled={isLoading || !code.trim()}
-                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 disabled:opacity-50 text-white font-medium py-3 rounded-xl transition-all shadow-[0_0_20px_rgba(79,70,229,0.3)] flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 disabled:opacity-50 text-white font-medium py-3 rounded-xl transition-all shadow-[0_0_20px_rgba(79,70,229,0.3)] flex items-center justify-center gap-2"
               >
                 {isLoading ? (
                   <>
@@ -113,15 +113,15 @@ export default function AICodeReview({ addXP }: { addXP: (amount: number) => voi
           {/* Output Section */}
           <div className="glass-panel rounded-3xl border border-white/10 overflow-hidden flex flex-col h-[70vh]">
             <div className="bg-black/40 px-4 py-3 border-b border-white/10 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-purple-400" />
+              <Sparkles className="w-4 h-4 text-blue-400" />
               <span className="text-sm font-medium text-slate-300">AI Analysis</span>
             </div>
             <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
               {isLoading ? (
                 <div className="h-full flex flex-col items-center justify-center text-slate-400 space-y-4">
                   <div className="relative">
-                    <div className="w-16 h-16 rounded-full border-4 border-indigo-500/20 border-t-indigo-500 animate-spin"></div>
-                    <Sparkles className="w-6 h-6 text-indigo-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
+                    <div className="w-16 h-16 rounded-full border-4 border-cyan-500/20 border-t-cyan-500 animate-spin"></div>
+                    <Sparkles className="w-6 h-6 text-cyan-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
                   </div>
                   <p className="text-sm font-medium animate-pulse">Running static analysis and AI review...</p>
                 </div>

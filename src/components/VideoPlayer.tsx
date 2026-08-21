@@ -26,7 +26,7 @@ export default function VideoPlayer({ lecture }: VideoPlayerProps) {
           href={watchUrl} 
           target="_blank" 
           rel="noopener noreferrer"
-          className="text-xs text-slate-500 hover:text-indigo-400 flex items-center gap-1.5 transition-colors font-medium"
+          className="text-xs text-slate-500 hover:text-cyan-400 flex items-center gap-1.5 transition-colors font-medium"
         >
           <ExternalLink className="w-3.5 h-3.5" />
           Video not playing? Watch directly on YouTube

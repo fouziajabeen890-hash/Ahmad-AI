@@ -65,7 +65,7 @@ export default function Reviews() {
       <div className="max-w-4xl mx-auto">
         <div className="mb-10">
           <h1 className="text-3xl font-bold text-white flex items-center gap-3 mb-2">
-            <MessageSquare className="w-8 h-8 text-indigo-500" />
+            <MessageSquare className="w-8 h-8 text-cyan-500" />
             Course Reviews
           </h1>
           <p className="text-slate-400 font-light">Share your experience and read what other students think about the Python course.</p>
@@ -103,7 +103,7 @@ export default function Reviews() {
                 maxLength={2000}
                 required
                 rows={4}
-                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 resize-none shadow-inner transition-all"
+                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 resize-none shadow-inner transition-all"
                 placeholder="How was your experience with the course? Did it help you learn Python?"
               />
               <p className="text-xs text-slate-500 mt-2 text-right">{comment.length}/2000</p>
@@ -113,7 +113,7 @@ export default function Reviews() {
               <button
                 type="submit"
                 disabled={isSubmitting || !comment.trim()}
-                className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 disabled:opacity-50 disabled:from-indigo-600 disabled:to-purple-600 text-white font-medium py-2.5 px-6 rounded-xl transition-all shadow-lg"
+                className="flex items-center gap-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 disabled:opacity-50 disabled:from-cyan-600 disabled:to-blue-600 text-white font-medium py-2.5 px-6 rounded-xl transition-all shadow-lg"
               >
                 {isSubmitting ? 'Submitting...' : 'Submit Review'}
                 <Send className="w-4 h-4" />

@@ -36,7 +36,7 @@ export default function Course() {
           >
             <Menu className="w-5 h-5" />
           </button>
-          <div className="flex items-center gap-2 text-indigo-400">
+          <div className="flex items-center gap-2 text-cyan-400">
             <BookOpen className="w-4 h-4 hidden sm:block" />
             <span className="font-medium text-xs uppercase tracking-wider hidden sm:block">Current Lesson</span>
           </div>
@@ -54,7 +54,7 @@ export default function Course() {
                 onClick={() => setActiveTab('video')}
                 className={cn(
                   "flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl font-medium transition-all whitespace-nowrap text-sm sm:text-base", 
-                  activeTab === 'video' ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/25" : "text-slate-400 hover:text-white hover:bg-white/5"
+                  activeTab === 'video' ? "bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-500/25" : "text-slate-400 hover:text-white hover:bg-white/5"
                 )}
               >
                 <Video className="w-4 h-4" />

@@ -252,8 +252,8 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
         >
           {/* Animated Background for Hero */}
           <div className="absolute inset-0 bg-ai-core opacity-40 group-hover:opacity-60 transition-opacity" />
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-indigo-600/20 rounded-full blur-[100px] animate-pulse" />
-          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-purple-600/20 rounded-full blur-[100px] animate-pulse" />
+          <div className="absolute -top-24 -right-24 w-96 h-96 bg-cyan-600/20 rounded-full blur-[100px] animate-pulse" />
+          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-600/20 rounded-full blur-[100px] animate-pulse" />
           
           <div className="relative z-10 flex flex-col lg:flex-row items-center gap-12">
             <div className="lg:w-3/5 text-center lg:text-left">
@@ -261,14 +261,14 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-bold mb-6"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-bold mb-6"
               >
                 <Sparkles className="w-4 h-4" />
                 Next-Gen Python Learning
               </motion.div>
               <h1 className="text-5xl lg:text-7xl font-extrabold text-white mb-6 tracking-tight leading-[1.1]">
                 Master Python <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 neon-text">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-pink-400 neon-text">
                   With AI Intelligence
                 </span>
               </h1>
@@ -278,7 +278,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
 
               {/* Voice Search Bar */}
               <div className="relative max-w-md mx-auto lg:mx-0 mb-10 group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity" />
+                <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity" />
                 <div className="relative flex items-center bg-black/40 border border-white/10 rounded-2xl p-1 backdrop-blur-xl">
                   <div className="pl-4 text-slate-400">
                     <Terminal className="w-5 h-5" />
@@ -297,7 +297,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
                     onClick={startVoiceSearch}
                     className={cn(
                       "p-3 rounded-xl transition-all",
-                      isVoiceSearching ? "bg-red-500/20 text-red-400 animate-pulse" : "bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400"
+                      isVoiceSearching ? "bg-red-500/20 text-red-400 animate-pulse" : "bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400"
                     )}
                   >
                     {isVoiceSearching ? <div className="voice-wave"><div className="voice-bar"></div><div className="voice-bar"></div><div className="voice-bar"></div></div> : <Mic className="w-5 h-5" />}
@@ -308,7 +308,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
                 <Link 
                   to="/course" 
-                  className="px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold hover:scale-105 transition-all shadow-[0_0_30px_rgba(79,70,229,0.4)] flex items-center gap-2"
+                  className="px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold hover:scale-105 transition-all shadow-[0_0_30px_rgba(79,70,229,0.4)] flex items-center gap-2"
                 >
                   Start Learning <Rocket className="w-5 h-5" />
                 </Link>
@@ -327,8 +327,8 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                 className="relative z-10"
               >
-                <div className="glass-panel p-6 rounded-[2.5rem] border-indigo-500/30 shadow-2xl relative">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-[2.5rem] blur opacity-20" />
+                <div className="glass-panel p-6 rounded-[2.5rem] border-cyan-500/30 shadow-2xl relative">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-[2.5rem] blur opacity-20" />
                   <div className="flex items-center gap-2 mb-4">
                     <div className="w-3 h-3 rounded-full bg-red-500" />
                     <div className="w-3 h-3 rounded-full bg-yellow-500" />
@@ -336,17 +336,17 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
                     <div className="ml-2 px-3 py-1 rounded-lg bg-white/5 text-[10px] text-slate-400 font-mono">python_tutor.py</div>
                   </div>
                   <div className="font-mono text-sm space-y-2">
-                    <p className="text-purple-400">def <span className="text-indigo-300">learn_python</span>():</p>
+                    <p className="text-blue-400">def <span className="text-cyan-300">learn_python</span>():</p>
                     <p className="pl-4 text-slate-300">skills = [<span className="text-emerald-400">"AI"</span>, <span className="text-emerald-400">"Data"</span>, <span className="text-emerald-400">"Web"</span>]</p>
                     <p className="pl-4 text-slate-300">for skill in skills:</p>
                     <p className="pl-8 text-slate-300">print(<span className="text-amber-400">f"Mastering {'{skill}'}..."</span>)</p>
-                    <p className="pl-4 text-indigo-400">return <span className="text-pink-400">"Success!"</span></p>
+                    <p className="pl-4 text-cyan-400">return <span className="text-pink-400">"Success!"</span></p>
                   </div>
                 </div>
               </motion.div>
               {/* Floating elements */}
-              <div className="absolute -top-10 -right-10 w-20 h-20 rounded-2xl bg-indigo-600/30 blur-xl animate-pulse" />
-              <div className="absolute -bottom-10 -left-10 w-20 h-20 rounded-2xl bg-purple-600/30 blur-xl animate-pulse" />
+              <div className="absolute -top-10 -right-10 w-20 h-20 rounded-2xl bg-cyan-600/30 blur-xl animate-pulse" />
+              <div className="absolute -bottom-10 -left-10 w-20 h-20 rounded-2xl bg-blue-600/30 blur-xl animate-pulse" />
             </div>
           </div>
         </motion.div>
@@ -428,21 +428,21 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="glass-panel p-8 rounded-[2.5rem] border border-indigo-500/20 relative overflow-hidden group"
+            className="glass-panel p-8 rounded-[2.5rem] border border-cyan-500/20 relative overflow-hidden group"
           >
             <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-              <Zap className="w-32 h-32 text-indigo-400" />
+              <Zap className="w-32 h-32 text-cyan-400" />
             </div>
             
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
-                    <Star className="w-5 h-5 text-indigo-400" />
+                  <div className="w-10 h-10 rounded-xl bg-cyan-500/20 flex items-center justify-center border border-cyan-500/30">
+                    <Star className="w-5 h-5 text-cyan-400" />
                   </div>
                   <h2 className="text-xl font-bold text-white tracking-tight">Daily Challenge</h2>
                 </div>
-                <div className="px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-400 text-xs font-bold">
+                <div className="px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 text-xs font-bold">
                   +{dailyChallenge.xp} XP
                 </div>
               </div>
@@ -457,7 +457,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
                 </div>
               ) : (
                 <div className="space-y-6">
-                  <div className="p-6 rounded-2xl bg-black/40 border border-white/5 font-mono text-indigo-300">
+                  <div className="p-6 rounded-2xl bg-black/40 border border-white/5 font-mono text-cyan-300">
                     {dailyChallenge.question}
                   </div>
                   <div className="grid sm:grid-cols-2 gap-3">
@@ -468,7 +468,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
                         className={cn(
                           "p-4 rounded-xl border text-left transition-all font-medium",
                           selectedAnswer === i 
-                            ? "bg-indigo-600 border-indigo-400 text-white shadow-lg shadow-indigo-500/20" 
+                            ? "bg-cyan-600 border-cyan-400 text-white shadow-lg shadow-cyan-500/20" 
                             : "bg-white/5 border-white/10 text-slate-300 hover:bg-white/10"
                         )}
                       >
@@ -479,7 +479,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
                   <button
                     onClick={handleChallengeSubmit}
                     disabled={selectedAnswer === null}
-                    className="w-full py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold disabled:opacity-50 transition-all shadow-lg shadow-indigo-500/20"
+                    className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold disabled:opacity-50 transition-all shadow-lg shadow-cyan-500/20"
                   >
                     Submit Answer
                   </button>
@@ -564,8 +564,8 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
           className="glass-panel p-8 rounded-[2.5rem] border border-white/5 mb-16"
         >
           <div className="flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
-              <User className="w-5 h-5 text-indigo-400" />
+            <div className="w-10 h-10 rounded-xl bg-cyan-500/20 flex items-center justify-center border border-cyan-500/30">
+              <User className="w-5 h-5 text-cyan-400" />
             </div>
             <h2 className="text-xl font-bold text-white tracking-tight">Recent Activity</h2>
           </div>
@@ -577,12 +577,12 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
               { user: "Usman", action: "started", target: "Object Oriented Programming", time: "12m ago" },
             ].map((activity, i) => (
               <div key={i} className="flex items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
-                <div className="w-10 h-10 rounded-xl bg-indigo-600/20 flex items-center justify-center text-indigo-400 font-bold text-xs">
+                <div className="w-10 h-10 rounded-xl bg-cyan-600/20 flex items-center justify-center text-cyan-400 font-bold text-xs">
                   {activity.user.charAt(0)}
                 </div>
                 <div>
                   <p className="text-sm text-slate-200">
-                    <span className="font-bold text-white">{activity.user}</span> {activity.action} <span className="text-indigo-400 font-medium">{activity.target}</span>
+                    <span className="font-bold text-white">{activity.user}</span> {activity.action} <span className="text-cyan-400 font-medium">{activity.target}</span>
                   </p>
                   <p className="text-[10px] text-slate-500 uppercase tracking-widest mt-1">{activity.time}</p>
                 </div>
@@ -598,22 +598,22 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
           transition={{ duration: 0.5, delay: 0.6 }}
           className="mt-12 pb-20 max-w-3xl mx-auto"
         >
-          <div className="glass-panel p-8 rounded-[2rem] border border-indigo-500/20 shadow-[0_0_30px_rgba(79,70,229,0.1)] relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5"></div>
+          <div className="glass-panel p-8 rounded-[2rem] border border-cyan-500/20 shadow-[0_0_30px_rgba(79,70,229,0.1)] relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5"></div>
             <div className="relative z-10 text-center">
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-indigo-500/20 border border-indigo-500/30 mb-4">
-                <Download className="w-6 h-6 text-indigo-400" />
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-cyan-500/20 border border-cyan-500/30 mb-4">
+                <Download className="w-6 h-6 text-cyan-400" />
               </div>
               <h2 className="text-2xl font-bold text-white mb-2">Download Mr Ahmad</h2>
               <p className="text-slate-400 mb-8 max-w-md mx-auto">Take the power of advanced AI anywhere. Install it as a native app on your device.</p>
               
               <div className="flex flex-wrap items-center justify-center gap-4">
-                <button onClick={() => handleDownload('Windows')} className="flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 hover:border-indigo-400 transition-all group shadow-lg">
-                  <Monitor className="w-5 h-5 text-indigo-400 group-hover:scale-110 transition-transform" />
+                <button onClick={() => handleDownload('Windows')} className="flex items-center gap-2 px-6 py-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 hover:border-cyan-400 transition-all group shadow-lg">
+                  <Monitor className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform" />
                   <span className="font-medium text-slate-200">Install for Windows</span>
                 </button>
-                <button onClick={() => handleDownload('Mac OS')} className="flex items-center gap-2 px-6 py-3 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 hover:border-purple-400 transition-all group shadow-lg">
-                  <Laptop className="w-5 h-5 text-purple-400 group-hover:scale-110 transition-transform" />
+                <button onClick={() => handleDownload('Mac OS')} className="flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 hover:border-blue-400 transition-all group shadow-lg">
+                  <Laptop className="w-5 h-5 text-blue-400 group-hover:scale-110 transition-transform" />
                   <span className="font-medium text-slate-200">Install for Mac OS</span>
                 </button>
                 <button onClick={() => handleDownload('Mobile')} className="flex items-center gap-2 px-6 py-3 rounded-xl bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/30 hover:border-pink-400 transition-all group shadow-lg">
@@ -644,17 +644,17 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                className="relative w-full max-w-2xl glass-panel p-8 rounded-[3rem] border-indigo-500/30 shadow-2xl overflow-hidden"
+                className="relative w-full max-w-2xl glass-panel p-8 rounded-[3rem] border-cyan-500/30 shadow-2xl overflow-hidden"
               >
                 <div className="absolute top-0 right-0 p-8 opacity-5">
-                  <BarChart3 className="w-64 h-64 text-indigo-400" />
+                  <BarChart3 className="w-64 h-64 text-cyan-400" />
                 </div>
                 
                 <div className="relative z-10">
                   <div className="flex items-center justify-between mb-8">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-2xl bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
-                        <Target className="w-6 h-6 text-indigo-400" />
+                      <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 flex items-center justify-center border border-cyan-500/30">
+                        <Target className="w-6 h-6 text-cyan-400" />
                       </div>
                       <div>
                         <h2 className="text-2xl font-bold text-white">Learning Roadmap</h2>
@@ -676,7 +676,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
                           <div className={cn(
                             "w-10 h-10 rounded-xl flex items-center justify-center border transition-all",
                             step.status === 'completed' ? "bg-emerald-500/20 border-emerald-500/30 text-emerald-400" :
-                            step.status === 'current' ? "bg-indigo-500/20 border-indigo-500/30 text-indigo-400 animate-pulse" :
+                            step.status === 'current' ? "bg-cyan-500/20 border-cyan-500/30 text-cyan-400 animate-pulse" :
                             "bg-white/5 border-white/10 text-slate-600"
                           )}>
                             <step.icon className="w-5 h-5" />
@@ -701,7 +701,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
 
                   <button 
                     onClick={() => setShowRoadmap(false)}
-                    className="w-full mt-8 py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition-all"
+                    className="w-full mt-8 py-4 rounded-2xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold transition-all"
                   >
                     Got it!
                   </button>
@@ -720,7 +720,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
         >
           <Link
             to="/chatbot"
-            className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-white shadow-[0_0_30px_rgba(79,70,229,0.5)] hover:scale-110 transition-all group"
+            className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-600 to-blue-600 flex items-center justify-center text-white shadow-[0_0_30px_rgba(79,70,229,0.5)] hover:scale-110 transition-all group"
           >
             <MessageSquare className="w-8 h-8 group-hover:scale-110 transition-transform" />
             <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-pink-500 border-4 border-[#0A0A0B] flex items-center justify-center text-[10px] font-bold">
@@ -736,9 +736,9 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 50 }}
-              className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-6 py-4 rounded-2xl bg-indigo-600 text-white shadow-[0_10px_40px_rgba(79,70,229,0.4)] border border-indigo-400/30"
+              className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-6 py-4 rounded-2xl bg-cyan-600 text-white shadow-[0_10px_40px_rgba(79,70,229,0.4)] border border-cyan-400/30"
             >
-              <CheckCircle2 className={`w-5 h-5 ${downloadMsg.includes('cancelled') ? 'text-red-400' : 'text-indigo-200'}`} />
+              <CheckCircle2 className={`w-5 h-5 ${downloadMsg.includes('cancelled') ? 'text-red-400' : 'text-cyan-200'}`} />
               <span className="font-medium">{downloadMsg}</span>
             </motion.div>
           )}
@@ -752,21 +752,21 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
-                className="glass-panel max-w-md w-full p-8 rounded-[2.5rem] border border-indigo-500/30 shadow-[0_0_50px_rgba(79,70,229,0.3)] text-center relative overflow-hidden"
+                className="glass-panel max-w-md w-full p-8 rounded-[2.5rem] border border-cyan-500/30 shadow-[0_0_50px_rgba(79,70,229,0.3)] text-center relative overflow-hidden"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-500/10"></div>
                 <div className="relative z-10">
-                  <div className="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg mb-6">
+                  <div className="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-cyan-600 to-blue-600 flex items-center justify-center shadow-lg mb-6">
                     <BrainCircuit className="w-10 h-10 text-white" />
                   </div>
                   <h2 className="text-2xl font-bold text-white mb-3">Install Mr Ahmad</h2>
                   
                   {isDownloading ? (
                     <div className="mb-8">
-                      <p className="text-indigo-400 font-medium mb-4">Finalizing Setup...</p>
+                      <p className="text-cyan-400 font-medium mb-4">Finalizing Setup...</p>
                       <div className="w-full h-3 bg-white/10 rounded-full overflow-hidden border border-white/5">
                         <motion.div 
-                          className="h-full bg-gradient-to-r from-indigo-500 to-purple-500"
+                          className="h-full bg-gradient-to-r from-cyan-500 to-blue-500"
                           initial={{ width: 0 }}
                           animate={{ width: `${progress}%` }}
                           transition={{ duration: 0.1 }}
@@ -788,7 +788,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
                         </div>
                         <div className="flex items-center gap-3 text-slate-300">
                           <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold">2</div>
-                          <p>Select <span className="text-white font-bold">"Install App"</span> or <span className="text-indigo-400 font-bold">"Add to Home Screen"</span>.</p>
+                          <p>Select <span className="text-white font-bold">"Install App"</span> or <span className="text-cyan-400 font-bold">"Add to Home Screen"</span>.</p>
                         </div>
                         <div className="flex items-center gap-3 text-slate-300">
                           <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold">3</div>
@@ -798,16 +798,16 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
 
                       <button
                         onClick={() => setShowAutoModal(false)}
-                        className="w-full py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition-all mt-4"
+                        className="w-full py-4 rounded-2xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold transition-all mt-4"
                       >
                         Got it!
                       </button>
                     </div>
                   ) : isIOS ? (
                     <div className="text-left space-y-4 mb-8">
-                      <div className="p-4 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex gap-3 items-start">
-                        <Info className="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" />
-                        <p className="text-sm text-indigo-200/80">iOS (iPhone/iPad) requires a manual step for security:</p>
+                      <div className="p-4 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex gap-3 items-start">
+                        <Info className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
+                        <p className="text-sm text-cyan-200/80">iOS (iPhone/iPad) requires a manual step for security:</p>
                       </div>
                       
                       <div className="space-y-3">
@@ -817,7 +817,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
                         </div>
                         <div className="flex items-center gap-3 text-slate-300">
                           <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold">2</div>
-                          <p>Scroll down and tap <span className="text-indigo-400 font-bold">"Add to Home Screen"</span>.</p>
+                          <p>Scroll down and tap <span className="text-cyan-400 font-bold">"Add to Home Screen"</span>.</p>
                         </div>
                         <div className="flex items-center gap-3 text-slate-300">
                           <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold">3</div>
@@ -827,7 +827,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
 
                       <button
                         onClick={() => setShowAutoModal(false)}
-                        className="w-full py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition-all mt-4"
+                        className="w-full py-4 rounded-2xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold transition-all mt-4"
                       >
                         Done!
                       </button>
@@ -839,7 +839,7 @@ export default function Home({ user, addXP }: { user: any, addXP: (amount: numbe
                       <div className="flex flex-col gap-3">
                         <button
                           onClick={handleInstall}
-                          className="w-full py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition-all shadow-[0_0_20px_rgba(79,70,229,0.4)]"
+                          className="w-full py-4 rounded-2xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold transition-all shadow-[0_0_20px_rgba(79,70,229,0.4)]"
                         >
                           Install Now
                         </button>

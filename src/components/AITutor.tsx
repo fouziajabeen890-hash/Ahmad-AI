@@ -113,12 +113,12 @@ export default function AITutor({ currentLecture }: AITutorProps) {
   return (
     <div className="flex flex-col h-full bg-transparent">
       <div className="p-6 border-b border-white/10 bg-black/20 flex items-center gap-3 shrink-0 backdrop-blur-md">
-        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center border border-indigo-500/30 shadow-inner">
-          <Bot className="w-5 h-5 text-indigo-400" />
+        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center border border-cyan-500/30 shadow-inner">
+          <Bot className="w-5 h-5 text-cyan-400" />
         </div>
         <div>
           <h3 className="font-bold text-white tracking-tight">AI Python Tutor</h3>
-          <p className="text-[11px] text-indigo-400/80 font-medium uppercase tracking-wider">Online & Ready</p>
+          <p className="text-[11px] text-cyan-400/80 font-medium uppercase tracking-wider">Online & Ready</p>
         </div>
       </div>
       
@@ -127,20 +127,20 @@ export default function AITutor({ currentLecture }: AITutorProps) {
           <div key={msg.id} className={cn("flex gap-4", msg.role === 'user' ? "flex-row-reverse" : "")}>
             <div className={cn(
               "w-8 h-8 rounded-full flex items-center justify-center shrink-0 shadow-lg",
-              msg.role === 'user' ? "bg-gradient-to-br from-indigo-500 to-purple-600" : "bg-slate-800 border border-white/10"
+              msg.role === 'user' ? "bg-gradient-to-br from-cyan-500 to-blue-600" : "bg-slate-800 border border-white/10"
             )}>
-              {msg.role === 'user' ? <User className="w-4 h-4 text-white" /> : <Bot className="w-4 h-4 text-indigo-400" />}
+              {msg.role === 'user' ? <User className="w-4 h-4 text-white" /> : <Bot className="w-4 h-4 text-cyan-400" />}
             </div>
             <div className={cn(
               "max-w-[85%] rounded-2xl px-5 py-4 text-sm shadow-xl",
               msg.role === 'user' 
-                ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-tr-none" 
+                ? "bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-tr-none" 
                 : "glass-panel text-slate-200 rounded-tl-none"
             )}>
               {msg.role === 'user' ? (
                 <p className="leading-relaxed">{msg.text}</p>
               ) : (
-                <div className="prose prose-invert prose-sm max-w-none prose-pre:bg-black/50 prose-pre:border prose-pre:border-white/10 prose-code:text-indigo-300">
+                <div className="prose prose-invert prose-sm max-w-none prose-pre:bg-black/50 prose-pre:border prose-pre:border-white/10 prose-code:text-cyan-300">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.text}</ReactMarkdown>
                 </div>
               )}
@@ -150,10 +150,10 @@ export default function AITutor({ currentLecture }: AITutorProps) {
         {isLoading && (
           <div className="flex gap-4">
             <div className="w-8 h-8 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center shrink-0 shadow-lg">
-              <Bot className="w-4 h-4 text-indigo-400" />
+              <Bot className="w-4 h-4 text-cyan-400" />
             </div>
             <div className="glass-panel rounded-2xl rounded-tl-none px-5 py-4 flex items-center gap-3 shadow-xl">
-              <Loader2 className="w-4 h-4 animate-spin text-indigo-400" />
+              <Loader2 className="w-4 h-4 animate-spin text-cyan-400" />
               <span className="text-sm text-slate-300 font-medium">Analyzing lecture context...</span>
             </div>
           </div>
@@ -169,12 +169,12 @@ export default function AITutor({ currentLecture }: AITutorProps) {
             onChange={e => setInput(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && handleSend()}
             placeholder="Ask a question about this lecture..."
-            className="w-full bg-black/40 border border-white/10 rounded-xl pl-4 pr-12 py-3.5 text-sm text-white focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-500 shadow-inner"
+            className="w-full bg-black/40 border border-white/10 rounded-xl pl-4 pr-12 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-slate-500 shadow-inner"
           />
           <button
             onClick={handleSend}
             disabled={isLoading || !input.trim()}
-            className="absolute right-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 disabled:opacity-50 disabled:from-indigo-600 disabled:to-purple-600 text-white rounded-lg w-8 h-8 flex items-center justify-center transition-all shadow-lg"
+            className="absolute right-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 disabled:opacity-50 disabled:from-cyan-600 disabled:to-blue-600 text-white rounded-lg w-8 h-8 flex items-center justify-center transition-all shadow-lg"
           >
             <Send className="w-4 h-4 ml-0.5" />
           </button>

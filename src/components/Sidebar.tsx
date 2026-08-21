@@ -36,7 +36,7 @@ export default function Sidebar({ courseData, currentLecture, onSelectLecture, i
       )}>
         <div className="p-6 border-b border-white/10 bg-white/5 flex justify-between items-center backdrop-blur-md">
           <div>
-            <h2 className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest mb-1">Course Curriculum</h2>
+            <h2 className="text-[10px] font-bold text-cyan-400 uppercase tracking-widest mb-1">Course Curriculum</h2>
             <p className="text-lg font-bold text-white tracking-tight">Python Masterclass</p>
           </div>
           {onClose && (
@@ -53,7 +53,7 @@ export default function Sidebar({ courseData, currentLecture, onSelectLecture, i
                 className="w-full flex items-center justify-between px-6 py-3.5 hover:bg-white/5 transition-colors text-left group"
               >
                 <div className="flex flex-col">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-400/80 mb-1">Section {index + 1}</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-cyan-400/80 mb-1">Section {index + 1}</span>
                   <span className="font-semibold text-sm text-slate-200 group-hover:text-white transition-colors">{module.title}</span>
                 </div>
                 {expandedModules[module.id] ? (
@@ -80,16 +80,16 @@ export default function Sidebar({ courseData, currentLecture, onSelectLecture, i
                         className={cn(
                           "w-full flex items-start gap-3 px-6 py-3 text-left text-sm transition-all duration-200 relative group",
                           isActive 
-                            ? "bg-indigo-500/10 text-indigo-300" 
+                            ? "bg-cyan-500/10 text-cyan-300" 
                             : "hover:bg-white/5 text-slate-400"
                         )}
                       >
                         {isActive && (
-                          <div className="absolute left-0 top-0 bottom-0 w-1 bg-indigo-500 rounded-r-full shadow-[0_0_10px_rgba(99,102,241,0.5)]"></div>
+                          <div className="absolute left-0 top-0 bottom-0 w-1 bg-cyan-500 rounded-r-full shadow-[0_0_10px_rgba(99,102,241,0.5)]"></div>
                         )}
                         
                         {isActive ? (
-                          <PlayCircle className="w-4 h-4 mt-0.5 shrink-0 text-indigo-400 animate-pulse" />
+                          <PlayCircle className="w-4 h-4 mt-0.5 shrink-0 text-cyan-400 animate-pulse" />
                         ) : (
                           <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0 text-slate-600 group-hover:text-slate-400 transition-colors" />
                         )}

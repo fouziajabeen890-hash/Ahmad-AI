@@ -78,21 +78,21 @@ export default function Auth({ onLogin }: { onLogin: (user: any) => void }) {
 
   return (
     <div className="min-h-screen bg-mesh flex font-sans relative overflow-hidden">
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-600/20 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-purple-600/20 blur-[120px] pointer-events-none" />
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-cyan-600/20 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-blue-600/20 blur-[120px] pointer-events-none" />
 
       <div className="hidden lg:flex lg:w-1/2 relative z-10 flex-col justify-between p-16">
         <div className="flex items-center gap-3 group">
-          <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-800 flex items-center justify-center shadow-[0_0_20px_rgba(79,70,229,0.4)] overflow-hidden">
+          <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-600 via-blue-600 to-cyan-800 flex items-center justify-center shadow-[0_0_20px_rgba(79,70,229,0.4)] overflow-hidden">
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30"></div>
             <BrainCircuit className="w-7 h-7 text-white relative z-10" />
-            <Sparkles className="w-4 h-4 text-indigo-200 absolute top-1 right-1 animate-pulse" />
+            <Sparkles className="w-4 h-4 text-cyan-200 absolute top-1 right-1 animate-pulse" />
           </div>
           <div className="flex flex-col">
             <h1 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300 tracking-tight leading-none">
               Mr Ahmad
             </h1>
-            <span className="text-sm font-bold text-indigo-400 uppercase tracking-widest mt-1">
+            <span className="text-sm font-bold text-cyan-400 uppercase tracking-widest mt-1">
               Tutorial & AI
             </span>
           </div>
@@ -101,7 +101,7 @@ export default function Auth({ onLogin }: { onLogin: (user: any) => void }) {
         <div className="max-w-xl">
           <h2 className="text-5xl font-bold text-white leading-[1.15] mb-6">
             Master Python. <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Build the Future.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">Build the Future.</span>
           </h2>
         </div>
       </div>
@@ -130,7 +130,7 @@ export default function Auth({ onLogin }: { onLogin: (user: any) => void }) {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="block w-full px-4 py-3.5 border border-white/10 rounded-2xl bg-black/20 text-white placeholder-slate-500 focus:ring-2 focus:ring-indigo-500"
+                  className="block w-full px-4 py-3.5 border border-white/10 rounded-2xl bg-black/20 text-white placeholder-slate-500 focus:ring-2 focus:ring-cyan-500"
                   placeholder="John Doe"
                   disabled={loading}
                 />
@@ -143,7 +143,7 @@ export default function Auth({ onLogin }: { onLogin: (user: any) => void }) {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="block w-full px-4 py-3.5 border border-white/10 rounded-2xl bg-black/20 text-white placeholder-slate-500 focus:ring-2 focus:ring-indigo-500"
+                className="block w-full px-4 py-3.5 border border-white/10 rounded-2xl bg-black/20 text-white placeholder-slate-500 focus:ring-2 focus:ring-cyan-500"
                 placeholder="you@example.com"
                 disabled={loading}
               />
@@ -155,7 +155,7 @@ export default function Auth({ onLogin }: { onLogin: (user: any) => void }) {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="block w-full px-4 py-3.5 border border-white/10 rounded-2xl bg-black/20 text-white placeholder-slate-500 focus:ring-2 focus:ring-indigo-500"
+                className="block w-full px-4 py-3.5 border border-white/10 rounded-2xl bg-black/20 text-white placeholder-slate-500 focus:ring-2 focus:ring-cyan-500"
                 placeholder="••••••••"
                 disabled={loading}
               />
@@ -163,7 +163,7 @@ export default function Auth({ onLogin }: { onLogin: (user: any) => void }) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3.5 px-4 rounded-2xl transition-all"
+              className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 text-white py-3.5 px-4 rounded-2xl transition-all"
             >
               {loading ? 'Please wait...' : (isLogin ? 'Sign In' : 'Create Account')}
             </button>
@@ -173,7 +173,7 @@ export default function Auth({ onLogin }: { onLogin: (user: any) => void }) {
             <button
               type="button"
               onClick={handleDummyLogin}
-              className="w-full bg-indigo-500/20 text-indigo-300 py-3 px-4 rounded-2xl transition-all"
+              className="w-full bg-cyan-500/20 text-cyan-300 py-3 px-4 rounded-2xl transition-all"
             >
               Continue as Guest
             </button>
@@ -183,7 +183,7 @@ export default function Auth({ onLogin }: { onLogin: (user: any) => void }) {
             {isLogin ? "Don't have an account? " : "Already have an account? "}
             <button
               onClick={() => setIsLogin(!isLogin)}
-              className="font-semibold text-indigo-400"
+              className="font-semibold text-cyan-400"
             >
               {isLogin ? 'Sign up' : 'Log in'}
             </button>

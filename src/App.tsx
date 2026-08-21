@@ -1,6 +1,6 @@
 import { useState, useEffect, Component, ErrorInfo, ReactNode } from 'react';
 import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Trophy, Menu, X, Home as HomeIcon, BookOpen, LogOut, Loader2, MessageSquare, PlayCircle, Bot, BrainCircuit, Sparkles, AlertTriangle, RefreshCw, Terminal as TerminalIcon, Instagram, Phone, Contact } from 'lucide-react';
+import { Trophy, Menu, X, Home as HomeIcon, BookOpen, LogOut, Loader2, MessageSquare, PlayCircle, Bot, BrainCircuit, Sparkles, AlertTriangle, RefreshCw, Terminal as TerminalIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Home from './pages/Home';
 import Course from './pages/Course';
@@ -11,7 +11,7 @@ import PythonChatbot from './pages/PythonChatbot';
 import FoundationOfAI from './pages/FoundationOfAI';
 import AICodeReview from './pages/AICodeReview';
 import PythonTerminal from './pages/PythonTerminal';
-import ContactUs from './pages/ContactUs';
+import PythonChallenges from './pages/PythonChallenges';
 import { cn } from './lib/utils';
 import { auth } from './firebase';
 import { onAuthStateChanged, signOut, User } from 'firebase/auth';
@@ -48,7 +48,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
           </div>
           <button 
             onClick={() => window.location.reload()}
-            className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/20"
+            className="flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-lg shadow-cyan-500/20"
           >
             <RefreshCw className="w-5 h-5" />
             Reload Application
@@ -90,16 +90,16 @@ function Layout({ children, user, onLogout }: LayoutProps) {
           </button>
           
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-800 flex items-center justify-center shadow-[0_0_15px_rgba(79,70,229,0.4)] overflow-hidden group-hover:shadow-[0_0_25px_rgba(79,70,229,0.6)] transition-all duration-300">
+            <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-600 via-blue-600 to-cyan-800 flex items-center justify-center shadow-[0_0_15px_rgba(79,70,229,0.4)] overflow-hidden group-hover:shadow-[0_0_25px_rgba(79,70,229,0.6)] transition-all duration-300">
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30"></div>
               <BrainCircuit className="w-6 h-6 text-white relative z-10 group-hover:scale-110 transition-transform duration-300" />
-              <Sparkles className="w-3 h-3 text-indigo-200 absolute top-1 right-1 animate-pulse" />
+              <Sparkles className="w-3 h-3 text-cyan-200 absolute top-1 right-1 animate-pulse" />
             </div>
             <div className="flex flex-col">
               <h1 className="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300 tracking-tight hidden sm:block leading-none">
                 Mr Ahmad
               </h1>
-              <span className="text-[11px] font-bold text-indigo-400 uppercase tracking-widest hidden sm:block mt-0.5">
+              <span className="text-[11px] font-bold text-cyan-400 uppercase tracking-widest hidden sm:block mt-0.5">
                 Tutorial & AI
               </span>
             </div>
@@ -108,7 +108,7 @@ function Layout({ children, user, onLogout }: LayoutProps) {
         
         <div className="flex items-center gap-6">
           <div className="hidden md:flex flex-col items-end gap-1">
-            <div className="flex items-center gap-2 text-xs font-bold text-indigo-400 uppercase tracking-widest">
+            <div className="flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-widest">
               <Trophy className="w-3 h-3" />
               <span>Level {user?.level || 1}</span>
               <span className="text-slate-500">•</span>
@@ -116,14 +116,14 @@ function Layout({ children, user, onLogout }: LayoutProps) {
             </div>
             <div className="w-32 h-1.5 bg-white/10 rounded-full overflow-hidden border border-white/5">
               <motion.div 
-                className="h-full bg-gradient-to-r from-indigo-500 to-purple-500"
+                className="h-full bg-gradient-to-r from-cyan-500 to-blue-500"
                 initial={{ width: 0 }}
                 animate={{ width: `${((user?.xp || 0) / (user?.nextLevelXP || 100)) * 100}%` }}
               />
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-indigo-900/50 border border-indigo-500/30 flex items-center justify-center text-sm font-bold text-indigo-200 overflow-hidden shadow-inner">
+            <div className="w-9 h-9 rounded-xl bg-indigo-900/50 border border-cyan-500/30 flex items-center justify-center text-sm font-bold text-cyan-200 overflow-hidden shadow-inner">
               {user?.displayName?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U'}
             </div>
             <button 
@@ -138,16 +138,16 @@ function Layout({ children, user, onLogout }: LayoutProps) {
 
         {/* Dropdown Menu */}
         {menuOpen && (
-          <div className="absolute top-20 left-4 right-4 sm:left-auto sm:right-4 sm:w-80 shadow-2xl rounded-3xl p-6 bg-slate-900/95 backdrop-blur-xl border border-white/20 flex flex-col z-50 animate-in fade-in zoom-in-95 duration-200 max-h-[70vh] overflow-y-auto">
+          <div className="absolute top-20 left-4 right-4 sm:left-auto sm:right-4 sm:w-80 shadow-2xl rounded-3xl p-6 bg-slate-950/95 backdrop-blur-xl border border-white/20 flex flex-col z-50 animate-in fade-in zoom-in-95 duration-200 max-h-[70vh] overflow-y-auto">
             <div className="px-2 pb-4 mb-2 border-b border-white/5">
-              <p className="text-xs font-bold text-indigo-400 uppercase tracking-wider">Navigation</p>
+              <p className="text-xs font-bold text-cyan-400 uppercase tracking-wider">Navigation</p>
             </div>
             <Link 
               to="/" 
               onClick={() => setMenuOpen(false)}
               className={cn(
                 "flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-xl transition-colors",
-                location.pathname === '/' ? "text-indigo-400 bg-indigo-500/10" : "text-slate-300"
+                location.pathname === '/' ? "text-cyan-400 bg-cyan-500/10" : "text-slate-300"
               )}
             >
               <HomeIcon className="w-5 h-5" />
@@ -158,7 +158,7 @@ function Layout({ children, user, onLogout }: LayoutProps) {
               onClick={() => setMenuOpen(false)}
               className={cn(
                 "flex items-center gap-3 px-6 py-4 hover:bg-white/5 transition-colors",
-                location.pathname === '/videos' ? "text-indigo-400 border-l-2 border-indigo-500 bg-indigo-500/10" : "text-slate-300 border-l-2 border-transparent"
+                location.pathname === '/videos' ? "text-cyan-400 border-l-2 border-cyan-500 bg-cyan-500/10" : "text-slate-300 border-l-2 border-transparent"
               )}
             >
               <PlayCircle className="w-5 h-5" />
@@ -172,7 +172,7 @@ function Layout({ children, user, onLogout }: LayoutProps) {
               onClick={() => setMenuOpen(false)}
               className={cn(
                 "flex items-center gap-3 px-6 py-4 hover:bg-white/5 transition-colors",
-                location.pathname === '/course' ? "text-indigo-400 border-l-2 border-indigo-500 bg-indigo-500/10" : "text-slate-300 border-l-2 border-transparent"
+                location.pathname === '/course' ? "text-cyan-400 border-l-2 border-cyan-500 bg-cyan-500/10" : "text-slate-300 border-l-2 border-transparent"
               )}
             >
               <BookOpen className="w-5 h-5" />
@@ -186,7 +186,7 @@ function Layout({ children, user, onLogout }: LayoutProps) {
               onClick={() => setMenuOpen(false)}
               className={cn(
                 "flex items-center gap-3 px-6 py-4 hover:bg-white/5 transition-colors",
-                location.pathname === '/reviews' ? "text-indigo-400 border-l-2 border-indigo-500 bg-indigo-500/10" : "text-slate-300 border-l-2 border-transparent"
+                location.pathname === '/reviews' ? "text-cyan-400 border-l-2 border-cyan-500 bg-cyan-500/10" : "text-slate-300 border-l-2 border-transparent"
               )}
             >
               <MessageSquare className="w-5 h-5" />
@@ -200,7 +200,7 @@ function Layout({ children, user, onLogout }: LayoutProps) {
               onClick={() => setMenuOpen(false)}
               className={cn(
                 "flex items-center gap-3 px-6 py-4 hover:bg-white/5 transition-colors",
-                location.pathname === '/chatbot' ? "text-indigo-400 border-l-2 border-indigo-500 bg-indigo-500/10" : "text-slate-300 border-l-2 border-transparent"
+                location.pathname === '/chatbot' ? "text-cyan-400 border-l-2 border-cyan-500 bg-cyan-500/10" : "text-slate-300 border-l-2 border-transparent"
               )}
             >
               <Bot className="w-5 h-5" />
@@ -214,7 +214,7 @@ function Layout({ children, user, onLogout }: LayoutProps) {
               onClick={() => setMenuOpen(false)}
               className={cn(
                 "flex items-center gap-3 px-6 py-4 hover:bg-white/5 transition-colors",
-                location.pathname === '/code-review' ? "text-indigo-400 border-l-2 border-indigo-500 bg-indigo-500/10" : "text-slate-300 border-l-2 border-transparent"
+                location.pathname === '/code-review' ? "text-cyan-400 border-l-2 border-cyan-500 bg-cyan-500/10" : "text-slate-300 border-l-2 border-transparent"
               )}
             >
               <Sparkles className="w-5 h-5" />
@@ -229,7 +229,7 @@ function Layout({ children, user, onLogout }: LayoutProps) {
               onClick={() => setMenuOpen(false)}
               className={cn(
                 "flex items-center gap-3 px-6 py-4 hover:bg-white/5 transition-colors",
-                location.pathname === '/terminal' ? "text-indigo-400 border-l-2 border-indigo-500 bg-indigo-500/10" : "text-slate-300 border-l-2 border-transparent"
+                location.pathname === '/terminal' ? "text-cyan-400 border-l-2 border-cyan-500 bg-cyan-500/10" : "text-slate-300 border-l-2 border-transparent"
               )}
             >
               <TerminalIcon className="w-5 h-5" />
@@ -239,53 +239,20 @@ function Layout({ children, user, onLogout }: LayoutProps) {
               </div>
             </Link>
 
-            <a 
-              href="https://www.instagram.com/its_ahmad_435/" 
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMenuOpen(false)}
-              className={cn(
-                "flex items-center gap-3 px-6 py-4 hover:bg-white/5 transition-colors text-slate-300 border-l-2 border-transparent"
-              )}
-            >
-              <Instagram className="w-5 h-5" />
-              <div className="flex flex-col">
-                <span className="font-medium">Follow on Instagram</span>
-                <span className="text-xs text-slate-500">its_ahmad_435</span>
-              </div>
-            </a>
-
-            <a 
-              href="https://wa.me/923004985806" 
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMenuOpen(false)}
-              className={cn(
-                "flex items-center gap-3 px-6 py-4 hover:bg-white/5 transition-colors text-slate-300 border-l-2 border-transparent"
-              )}
-            >
-              <Phone className="w-5 h-5" />
-              <div className="flex flex-col">
-                <span className="font-medium">Contact on WhatsApp</span>
-                <span className="text-xs text-slate-500">03004985806</span>
-              </div>
-            </a>
-
             <Link 
-              to="/contact"
+              to="/challenges"
               onClick={() => setMenuOpen(false)}
               className={cn(
                 "flex items-center gap-3 px-6 py-4 hover:bg-white/5 transition-colors",
-                location.pathname === '/contact' ? "text-indigo-400 border-l-2 border-indigo-500 bg-indigo-500/10" : "text-slate-300 border-l-2 border-transparent"
+                location.pathname === '/challenges' ? "text-yellow-400 border-l-2 border-yellow-500 bg-yellow-500/10" : "text-slate-300 border-l-2 border-transparent"
               )}
             >
-              <Contact className="w-5 h-5" />
+              <Trophy className="w-5 h-5" />
               <div className="flex flex-col">
-                <span className="font-medium">Contact Us</span>
-                <span className="text-xs text-slate-500">Get in touch</span>
+                <span className="font-medium">Daily Challenges</span>
+                <span className="text-xs text-slate-500">Code & earn XP</span>
               </div>
             </Link>
-
             <div className="mt-auto pt-4 border-t border-white/5 sm:hidden">
               <button 
                 onClick={() => {
@@ -320,8 +287,8 @@ function AnimatedRoutes({ user, addXP }: { user: any, addXP: (amount: number) =>
         <Route path="/chatbot" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><PythonChatbot addXP={addXP} /></motion.div>} />
         <Route path="/code-review" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><AICodeReview addXP={addXP} /></motion.div>} />
         <Route path="/terminal" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><PythonTerminal addXP={addXP} /></motion.div>} />
+        <Route path="/challenges" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><PythonChallenges user={user} addXP={addXP} /></motion.div>} />
         <Route path="/foundation" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><FoundationOfAI /></motion.div>} />
-        <Route path="/contact" element={<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="w-full flex-1 flex flex-col items-stretch min-h-0"><ContactUs /></motion.div>} />
       </Routes>
     </AnimatePresence>
   );
@@ -445,7 +412,7 @@ export default function App() {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#0A0A0B] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+        <Loader2 className="w-8 h-8 text-cyan-500 animate-spin" />
       </div>
     );
   }
